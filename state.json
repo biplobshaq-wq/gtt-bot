@@ -13,7 +13,7 @@
    "tv": [
     "NBC"
    ],
-   "fb": false,
+   "fb": true,
    "final": false,
    "away": "Miami",
    "home": "Notre Dame",
@@ -23,5 +23,7 @@
  "daily": {
   "2026-11-07": 1
  },
- "fbdaily": {}
+ "fbdaily": {
+  "2026-11-07": 1
+ }
 }
