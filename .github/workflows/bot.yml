@@ -1,0 +1,33 @@
+name: Game Time Tonight bot
+on:
+  schedule:
+    - cron: '10 * * * *'   # every hour at :10
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: gtt-bot
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - run: test -f /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf || (sudo apt-get update -qq && sudo apt-get install -y -qq fonts-dejavu-core)
+      - run: |
+          git config user.name "gtt-bot"
+          git config user.email "gtt-bot@users.noreply.github.com"
+      - run: python gtt.py
+        env:
+          WEBAPP: ${{ secrets.WEBAPP }}
+          WEB_SECRET: ${{ secrets.WEB_SECRET }}
+          FB_WEBHOOK: ${{ secrets.FB_WEBHOOK }}
+      - name: Save progress
+        run: |
+          git add state.json img || true
+          git diff --cached --quiet || (git commit -q -m "state" && git pull -q --rebase && git push -q)
