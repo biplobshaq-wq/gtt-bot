@@ -32,7 +32,7 @@
    "tv": [
     "ABC"
    ],
-   "fb": false,
+   "fb": true,
    "final": false,
    "away": "Georgia",
    "home": "Ole Miss",
@@ -43,6 +43,6 @@
   "2026-11-07": 2
  },
  "fbdaily": {
-  "2026-11-07": 1
+  "2026-11-07": 2
  }
 }
