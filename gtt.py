@@ -6,6 +6,7 @@ Blogger publishing + Gemini go through the owner's Apps Script web app."""
 import base64, datetime as dt, html, json, os, re, subprocess, sys, time, urllib.request
 from zoneinfo import ZoneInfo
 from card import make_card
+from reel import make_reel
 
 WEBAPP = os.environ.get('WEBAPP', '').strip()
 SECRET = os.environ.get('WEB_SECRET', '').strip()
@@ -14,7 +15,7 @@ BLOG_ID = '8757754119349417883'
 REPO_RAW = 'https://raw.githubusercontent.com/biplobshaq-wq/gtt-bot/main/'
 ET, PT, CT = ZoneInfo('America/New_York'), ZoneInfo('America/Los_Angeles'), ZoneInfo('America/Chicago')
 DAILY_CAP = int(os.environ.get('DAILY_CAP', '12'))
-FB_DAILY_CAP = 5
+FB_DAILY_CAP = 3   # Make free plan: ~5 credits per reel
 STATE = 'state.json'
 ESPN = 'https://site.api.espn.com/apis/site/v2/sports/'
 LEAGUES = [('football/nfl', 'NFL'), ('football/college-football', 'College Football'), ('basketball/nba', 'NBA')]
@@ -325,13 +326,24 @@ def send_fb(state, now):
         return
     gid, s = max(pend, key=lambda x: x[1]['score'])
     word = 'Tip-off' if s['lname'] == 'NBA' else 'Kickoff'
+    ko = dt.datetime.fromisoformat(s['ko']).astimezone(ET)
+    when = ko.strftime('%-I:%M %p ET').replace(':00 ', ' ')
+    tv = ', '.join(s['tv'][:2]) or 'check local listings'
+    j = get_json(ESPN + s['league'] + '/summary?event=' + gid)
+    t = {c['homeAway']: team_obj(c) for c in j['header']['competitions'][0]['competitors']}
+    A = {'name': t['away']['short'], 'logo': t['away']['logo'], 'color': t['away']['color']}
+    H = {'name': t['home']['short'], 'logo': t['home']['logo'], 'color': t['home']['color']}
+    stream = STREAM.get((s['tv'] or [''])[0].upper(), '')
+    tvline = 'TV: ' + tv + ('  \u00b7  Stream: ' + stream.split(',')[0].replace('the ', '') if stream else '')
+    make_reel(A, H, s['lname'], ko.strftime('%A, %b ').upper() + str(ko.day), word.upper() + ' ' + when, tvline, 'reel.mp4')
     tags = ' '.join('#' + re.sub(r'[^A-Za-z0-9]', '', x) for x in [s['away'], s['home'], s['lname']])
-    cap = (f"{s['away']} vs {s['home']} \U0001F525\n{word}: {s['line1'].split('· ', 1)[-1].title().replace(' Et', ' ET')}"
-           f"\nTV: {', '.join(s['tv'][:2]) or 'check local listings'}\n\nLive score, TV channel and preview: link in the comments \U0001F447\n\n{tags}")
-    payload = {'photo': base64.b64encode(open(s['img'], 'rb').read()).decode(), 'filename': gid + '.jpg',
+    cap = (f"{s['away']} vs {s['home']} \U0001F525\n{word}: {ko.strftime('%A')} at {when}\nTV: {tv}"
+           f"\n\nLive score, TV channel and preview: link in the comments \U0001F447\n\n{tags}")
+    payload = {'video': base64.b64encode(open('reel.mp4', 'rb').read()).decode(), 'filename': gid + '.mp4',
+               'title': f"{s['away']} vs {s['home']}: {word} Time & TV Channel"[:100],
                'caption': cap, 'comment': 'Live score, TV channel and preview: ' + s['url'], 'link': s['url']}
     req = urllib.request.Request(FB_HOOK, data=json.dumps(payload).encode(), headers={'Content-Type': 'application/json'})
-    print('FB:', urllib.request.urlopen(req, timeout=120).read().decode()[:100])
+    print('FB reel:', s['away'], 'vs', s['home'], urllib.request.urlopen(req, timeout=120).read().decode()[:100])
     s['fb'] = True
     state['fbdaily'][day] = state['fbdaily'].get(day, 0) + 1
 
