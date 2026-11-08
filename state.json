@@ -108,7 +108,7 @@
    "tv": [
     "Fox"
    ],
-   "fb": false,
+   "fb": true,
    "final": false,
    "away": "Cowboys",
    "home": "Colts",
@@ -341,14 +341,35 @@
    "away": "76ers",
    "home": "Bulls",
    "lname": "NBA"
+  },
+  "401909947": {
+   "post": "2604248018776185535",
+   "url": "https://gametimetonight.blogspot.com/2026/11/jazz-vs-timberwolves-tip-off-time-tv.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-09T00:00:00+00:00",
+   "date": "2026-11-08",
+   "score": 20,
+   "title": "Jazz vs Timberwolves: Tip-Off Time, TV Channel & Live Score (November 8)",
+   "img": "img/401909947.jpg",
+   "line1": "SUN, NOV 8 \u00b7 TIP-OFF 7 PM ET",
+   "tv": [
+    "DAZN MIN",
+    "KJZZ-TV",
+    "Jazz+"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Jazz",
+   "home": "Timberwolves",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
-  "2026-11-08": 9
+  "2026-11-08": 10
  },
  "fbdaily": {
   "2026-11-07": 3,
-  "2026-11-08": 1
+  "2026-11-08": 2
  }
 }
