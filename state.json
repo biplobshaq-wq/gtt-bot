@@ -246,11 +246,30 @@
    "away": "Texans",
    "home": "Chargers",
    "lname": "NFL"
+  },
+  "401873049": {
+   "post": "6954611497634714542",
+   "url": "https://gametimetonight.blogspot.com/2026/11/packers-vs-patriots-kickoff-time-tv.html",
+   "league": "football/nfl",
+   "ko": "2026-11-08T21:25:00+00:00",
+   "date": "2026-11-08",
+   "score": 100,
+   "title": "Packers vs Patriots: Kickoff Time, TV Channel & Live Score (Week 9)",
+   "img": "img/401873049.jpg",
+   "line1": "SUN, NOV 8 \u00b7 KICKOFF 4:25 PM ET",
+   "tv": [
+    "Fox"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Packers",
+   "home": "Patriots",
+   "lname": "NFL"
   }
  },
  "daily": {
   "2026-11-07": 9,
-  "2026-11-08": 4
+  "2026-11-08": 5
  },
  "fbdaily": {
   "2026-11-07": 3
