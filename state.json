@@ -109,7 +109,7 @@
     "Fox"
    ],
    "fb": true,
-   "final": false,
+   "final": true,
    "away": "Cowboys",
    "home": "Colts",
    "lname": "NFL"
@@ -128,7 +128,7 @@
     "CBS"
    ],
    "fb": true,
-   "final": false,
+   "final": true,
    "away": "Jets",
    "home": "Chiefs",
    "lname": "NFL"
@@ -147,7 +147,7 @@
     "Fox"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Lions",
    "home": "Dolphins",
    "lname": "NFL"
