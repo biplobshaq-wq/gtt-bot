@@ -94,10 +94,29 @@
    "away": "Cincinnati",
    "home": "Atlanta",
    "lname": "NFL"
+  },
+  "401873040": {
+   "post": "5392283370346704762",
+   "url": "https://gametimetonight.blogspot.com/2026/11/cowboys-vs-colts-kickoff-time-tv.html",
+   "league": "football/nfl",
+   "ko": "2026-11-08T18:00:00+00:00",
+   "date": "2026-11-08",
+   "score": 100,
+   "title": "Cowboys vs Colts: Kickoff Time, TV Channel & Live Score (Week 9)",
+   "img": "img/401873040.jpg",
+   "line1": "SUN, NOV 8 \u00b7 KICKOFF 1 PM ET",
+   "tv": [
+    "Fox"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Dallas",
+   "home": "Indianapolis",
+   "lname": "NFL"
   }
  },
  "daily": {
-  "2026-11-07": 5
+  "2026-11-07": 6
  },
  "fbdaily": {
   "2026-11-07": 3
