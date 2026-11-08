@@ -113,10 +113,29 @@
    "away": "Dallas",
    "home": "Indianapolis",
    "lname": "NFL"
+  },
+  "401873045": {
+   "post": "195486875480018656",
+   "url": "https://gametimetonight.blogspot.com/2026/11/jets-vs-chiefs-kickoff-time-tv-channel.html",
+   "league": "football/nfl",
+   "ko": "2026-11-08T18:00:00+00:00",
+   "date": "2026-11-08",
+   "score": 100,
+   "title": "Jets vs Chiefs: Kickoff Time, TV Channel & Live Score (Week 9)",
+   "img": "img/401873045.jpg",
+   "line1": "SUN, NOV 8 \u00b7 KICKOFF 1 PM ET",
+   "tv": [
+    "CBS"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "New York",
+   "home": "Kansas City",
+   "lname": "NFL"
   }
  },
  "daily": {
-  "2026-11-07": 6
+  "2026-11-07": 7
  },
  "fbdaily": {
   "2026-11-07": 3
