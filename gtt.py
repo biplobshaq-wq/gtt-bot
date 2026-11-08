@@ -318,6 +318,32 @@ def add_results(state, now, limit=3):
             print('result fail', gid, e)
 
 
+def key_players(j, away, home, league):
+    """one headline player per team from ESPN leaders: [(name, stat, color_hex)] away first."""
+    want = 'points' if league == 'NBA' else 'passingYards'
+    out = {}
+    for blk in j.get('leaders', []) or []:
+        tn = (blk.get('team') or {}).get('displayName', '')
+        for cat in blk.get('leaders') or []:
+            if cat.get('name') != want:
+                continue
+            l0 = (cat.get('leaders') or [{}])[0]
+            nm = (l0.get('athlete') or {}).get('displayName')
+            dv = l0.get('displayValue', '') or ''
+            if league == 'NBA':
+                st = dv + (' PPG' if '.' in dv else ' PTS') if dv else ''
+            else:
+                y = re.search(r'([\d,]+) YDS', dv); td = re.search(r'(\d+) TD', dv)
+                st = ', '.join(x for x in [(y.group(1) + ' YDS') if y else '', (td.group(1) + ' TD') if td else ''] if x)
+            if nm:
+                out[tn] = (nm, st)
+    res = []
+    for t in (away, home):
+        if t['name'] in out:
+            res.append((out[t['name']][0], out[t['name']][1], t['color']))
+    return res
+
+
 def send_fb(state, now):
     if not FB_HOOK:
         return
@@ -344,12 +370,17 @@ def send_fb(state, now):
     hook = word.upper() + (' IN %d MIN' % max(5, mins) if mins < 60 else ' IN %d HOUR%s' % (round(mins / 60), '' if round(mins / 60) == 1 else 'S'))
     if A['rank'] and H['rank']:
         hook = 'TOP-10 SHOWDOWN' if max(A['rank'], H['rank']) <= 10 else 'TOP-25 SHOWDOWN'
+    try:
+        kp = key_players(j, t['away'], t['home'], s['lname'])
+    except Exception:
+        kp = []
     stream = STREAM.get((s['tv'] or [''])[0].upper(), '')
     tvline = 'TV: ' + tv + ('  \u00b7  Stream: ' + stream.split(',')[0].replace('the ', '') if stream else '')
-    make_reel(A, H, s['lname'], ko.strftime('%A, %b ').upper() + str(ko.day), word.upper() + ' ' + when, tvline, 'reel.mp4', hook=hook, seed=int(gid))
+    make_reel(A, H, s['lname'], ko.strftime('%A, %b ').upper() + str(ko.day), word.upper() + ' ' + when, tvline, 'reel.mp4', hook=hook, seed=int(gid), players=kp)
     tags = ' '.join('#' + re.sub(r'[^A-Za-z0-9]', '', x) for x in [s['away'], s['home'], s['lname']])
     ball = '\U0001F3C0' if s['lname'] == 'NBA' else '\U0001F3C8'
     cap = (f"{s['away']} vs {s['home']} \U0001F525\n{word}: {ko.strftime('%A')} at {when}\nTV: {tv}"
+           + (f"\nPlayers to watch: {kp[0][0]} & {kp[1][0]}" if len(kp) == 2 else '') +
            f"\n\nWho wins? Drop your pick below {ball}"
            f"\n\nLive score, TV channel and preview: link in the comments \U0001F447\n\n{tags}")
     payload = {'video': base64.b64encode(open('reel.mp4', 'rb').read()).decode(), 'filename': gid + '.mp4',
