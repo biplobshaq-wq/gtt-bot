@@ -136,6 +136,10 @@ def team_obj(c):
             'record': (c.get('record') or [{}])[0].get('summary') if c.get('record') else ''}
 
 
+def disp(x, league):
+    return (x.get('nick') or x['short']) if league in ('NFL', 'NBA') else x['short']
+
+
 def facts_for(g):
     j = get_json(ESPN + g['league'] + '/summary?event=' + g['id'])
     comp = j['header']['competitions'][0]
@@ -216,10 +220,10 @@ def build_html(g, f, ai, img_url):
     prev = ''.join(f'<p>{esc(p)}</p>' for p in ai.get('preview', [])[:3])
     keys = ''.join(f'<li>{esc(k)}</li>' for k in ai.get('keys', [])[:3])
     faq = ''.join(f"<p><b>{esc(x.get('q'))}</b><br/>{esc(x.get('a'))}</p>" for x in ai.get('faq', [])[:4] if isinstance(x, dict))
-    return f"""<img alt="{esc(a['short'])} vs {esc(h['short'])} {word.lower()} time and TV channel" src="{img_url}" width="1200" height="675"/>
+    return f"""<img alt="{esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))} {word.lower()} time and TV channel" src="{img_url}" width="1200" height="675"/>
 <div class="gtt-live" data-league="{g['league']}" data-event="{g['id']}"><div class="st">Loading live score…</div></div>
 <p>{esc(ai.get('intro'))}</p>
-<h2>How to Watch {esc(a['short'])} vs {esc(h['short'])}</h2>
+<h2>How to Watch {esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))}</h2>
 {table}
 <h2>Game Preview</h2>
 {prev}
@@ -259,8 +263,8 @@ def publish_preview(g, state, now):
     line1 = ko.strftime('%a, %b ').upper() + str(ko.day) + ' · ' + word + ' ' + ko.strftime('%-I:%M %p ET').replace(':00 ', ' ')
     line2 = ('Watch on ' + ', '.join(g['tv'][:2]) if g['tv'] else 'TV: check local listings') + ' · Live score inside'
     path = f"img/{g['id']}.jpg"
-    A = {'name': f['away']['short'], 'logo': f['away']['logo'], 'color': f['away']['color']}
-    H = {'name': f['home']['short'], 'logo': f['home']['logo'], 'color': f['home']['color']}
+    A = {'name': disp(f['away'], f['league']), 'logo': f['away']['logo'], 'color': f['away']['color']}
+    H = {'name': disp(f['home'], f['league']), 'logo': f['home']['logo'], 'color': f['home']['color']}
     make_card(A, H, line1, line2, path, f['league'], seed=int(g['id']))
     git_push('img ' + g['id'], [path])
     r = web({'action': 'post', 'title': title_for(f), 'html': build_html(g, f, ai, REPO_RAW + path), 'labels': labels_for(f)})
@@ -268,7 +272,7 @@ def publish_preview(g, state, now):
     state['games'][g['id']] = {'post': r['id'], 'url': r['url'], 'league': g['league'], 'ko': g['ko'].isoformat(),
                               'date': ko.strftime('%Y-%m-%d'), 'score': g['score'], 'title': title_for(f), 'img': path,
                               'line1': line1, 'tv': g['tv'], 'fb': False, 'final': False,
-                              'away': f['away']['short'], 'home': f['home']['short'], 'lname': f['league']}
+                              'away': disp(f['away'], f['league']), 'home': disp(f['home'], f['league']), 'lname': f['league']}
     day = now.astimezone(ET).strftime('%Y-%m-%d')
     state['daily'][day] = state['daily'].get(day, 0) + 1
 
@@ -334,7 +338,7 @@ def send_fb(state, now):
     def tt(x):
         r = x.get('rank')
         r = r if isinstance(r, int) and 0 < r <= 25 else None
-        return {'name': x['short'], 'logo': x['logo'], 'color': x['color'], 'rank': r, 'record': x.get('record') or ''}
+        return {'name': disp(x, s['lname']), 'logo': x['logo'], 'color': x['color'], 'rank': r, 'record': x.get('record') or ''}
     A, H = tt(t['away']), tt(t['home'])
     mins = int((dt.datetime.fromisoformat(s['ko']) - now).total_seconds() // 60)
     hook = word.upper() + (' IN %d MIN' % max(5, mins) if mins < 60 else ' IN %d HOUR%s' % (round(mins / 60), '' if round(mins / 60) == 1 else 'S'))
