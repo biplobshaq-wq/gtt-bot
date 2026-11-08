@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install pillow imageio-ffmpeg
+      - run: pip install pillow imageio-ffmpeg numpy
       - run: test -f /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf || (sudo apt-get update -qq && sudo apt-get install -y -qq fonts-dejavu-core)
       - run: |
           git config user.name "gtt-bot"
