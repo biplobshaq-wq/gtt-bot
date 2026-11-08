@@ -289,8 +289,8 @@ def build_html(g, f, ai, img_url):
     keys = ''.join(f'<li>{esc(k)}</li>' for k in ai.get('keys', [])[:3])
     faq = ''.join(f"<p><b>{esc(x.get('q'))}</b><br/>{esc(x.get('a'))}</p>" for x in ai.get('faq', [])[:4] if isinstance(x, dict))
     return f"""<img alt="{esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))} {word.lower()} time and TV channel" src="{img_url}" width="1200" height="675"/>
-<div class="gtt-live" data-league="{g['league']}" data-event="{g['id']}"><div class="st">Loading live score…</div></div>
 <p>{esc(ai.get('intro'))}</p>
+<div class="gtt-live" data-league="{g['league']}" data-event="{g['id']}"><div class="st">Loading live score…</div></div>
 <h2>How to Watch {esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))}</h2>
 {table}
 {f.get('ptw_html', '')}
