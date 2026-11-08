@@ -89,7 +89,7 @@
    "tv": [
     "NFL Net"
    ],
-   "fb": false,
+   "fb": true,
    "final": false,
    "away": "Bengals",
    "home": "Falcons",
@@ -303,13 +303,35 @@
    "away": "Cardinals",
    "home": "Seahawks",
    "lname": "NFL"
+  },
+  "401909946": {
+   "post": "284525092269584791",
+   "url": "https://gametimetonight.blogspot.com/2026/11/lakers-vs-pistons-tip-off-time-tv.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-08T23:00:00+00:00",
+   "date": "2026-11-08",
+   "score": 50,
+   "title": "Lakers vs Pistons: Tip-Off Time, TV Channel & Live Score (November 8)",
+   "img": "img/401909946.jpg",
+   "line1": "SUN, NOV 8 \u00b7 TIP-OFF 6 PM ET",
+   "tv": [
+    "NBA TV",
+    "Spectrum Sports Net",
+    "Spectrum Sports Net +"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Lakers",
+   "home": "Pistons",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
-  "2026-11-08": 7
+  "2026-11-08": 8
  },
  "fbdaily": {
-  "2026-11-07": 3
+  "2026-11-07": 3,
+  "2026-11-08": 1
  }
 }
