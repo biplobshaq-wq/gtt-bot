@@ -261,7 +261,7 @@ def publish_preview(g, state, now):
     path = f"img/{g['id']}.jpg"
     A = {'name': f['away']['short'], 'logo': f['away']['logo'], 'color': f['away']['color']}
     H = {'name': f['home']['short'], 'logo': f['home']['logo'], 'color': f['home']['color']}
-    make_card(A, H, line1, line2, path, f['league'])
+    make_card(A, H, line1, line2, path, f['league'], seed=int(g['id']))
     git_push('img ' + g['id'], [path])
     r = web({'action': 'post', 'title': title_for(f), 'html': build_html(g, f, ai, REPO_RAW + path), 'labels': labels_for(f)})
     print('Published:', r.get('url'))
@@ -331,13 +331,22 @@ def send_fb(state, now):
     tv = ', '.join(s['tv'][:2]) or 'check local listings'
     j = get_json(ESPN + s['league'] + '/summary?event=' + gid)
     t = {c['homeAway']: team_obj(c) for c in j['header']['competitions'][0]['competitors']}
-    A = {'name': t['away']['short'], 'logo': t['away']['logo'], 'color': t['away']['color']}
-    H = {'name': t['home']['short'], 'logo': t['home']['logo'], 'color': t['home']['color']}
+    def tt(x):
+        r = x.get('rank')
+        r = r if isinstance(r, int) and 0 < r <= 25 else None
+        return {'name': x['short'], 'logo': x['logo'], 'color': x['color'], 'rank': r, 'record': x.get('record') or ''}
+    A, H = tt(t['away']), tt(t['home'])
+    mins = int((dt.datetime.fromisoformat(s['ko']) - now).total_seconds() // 60)
+    hook = word.upper() + (' IN %d MIN' % max(5, mins) if mins < 60 else ' IN %d HOUR%s' % (round(mins / 60), '' if round(mins / 60) == 1 else 'S'))
+    if A['rank'] and H['rank']:
+        hook = 'TOP-10 SHOWDOWN' if max(A['rank'], H['rank']) <= 10 else 'TOP-25 SHOWDOWN'
     stream = STREAM.get((s['tv'] or [''])[0].upper(), '')
     tvline = 'TV: ' + tv + ('  \u00b7  Stream: ' + stream.split(',')[0].replace('the ', '') if stream else '')
-    make_reel(A, H, s['lname'], ko.strftime('%A, %b ').upper() + str(ko.day), word.upper() + ' ' + when, tvline, 'reel.mp4')
+    make_reel(A, H, s['lname'], ko.strftime('%A, %b ').upper() + str(ko.day), word.upper() + ' ' + when, tvline, 'reel.mp4', hook=hook, seed=int(gid))
     tags = ' '.join('#' + re.sub(r'[^A-Za-z0-9]', '', x) for x in [s['away'], s['home'], s['lname']])
+    ball = '\U0001F3C0' if s['lname'] == 'NBA' else '\U0001F3C8'
     cap = (f"{s['away']} vs {s['home']} \U0001F525\n{word}: {ko.strftime('%A')} at {when}\nTV: {tv}"
+           f"\n\nWho wins? Drop your pick below {ball}"
            f"\n\nLive score, TV channel and preview: link in the comments \U0001F447\n\n{tags}")
     payload = {'video': base64.b64encode(open('reel.mp4', 'rb').read()).decode(), 'filename': gid + '.mp4',
                'title': f"{s['away']} vs {s['home']}: {word} Time & TV Channel"[:100],
