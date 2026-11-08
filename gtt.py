@@ -171,7 +171,12 @@ def facts_for(g):
             if (it.get('status') or '').lower() in ('out', 'doubtful', 'injured reserve'):
                 inj.append(f"{tn}: {(it.get('athlete') or {}).get('displayName')} ({it.get('status')})")
     ko = g['ko']
+    try:
+        ptw = ptw_list(j, away, home, g['lname'])
+    except Exception:
+        ptw = []
     return {
+        'ptw': ptw,
         'league': g['lname'], 'week': g.get('week'), 'away': away, 'home': home,
         'neutral': comp.get('neutralSite', False),
         'venue': venue.get('fullName', ''), 'city': ', '.join(x for x in [addr.get('city'), addr.get('state') or addr.get('country')] if x),
@@ -200,6 +205,68 @@ def esc(s):
     return html.escape(str(s or ''), quote=False)
 
 
+def ptw_list(j, away, home, league):
+    """Players to watch for the blog: 2 per team from ESPN leaders."""
+    def fmt(cat, dv):
+        if league == 'NBA':
+            unit = {'points': 'PTS', 'rebounds': 'REB', 'assists': 'AST'}.get(cat, '')
+            return (dv + ' ' + ('P' + unit[0] + 'G' if '.' in dv and unit else unit)).strip() if dv else ''
+        if cat == 'passingYards':
+            y = re.search(r'([\d,]+) YDS', dv); td = re.search(r'(\d+) TD', dv)
+            return ', '.join(x for x in [(y.group(1) + ' pass YDS') if y else '', (td.group(1) + ' TD') if td else ''] if x)
+        return re.sub(r'\s*\d+ CAR,\s*', '', dv).replace('YDS', 'YDS' if cat == 'receivingYards' else 'rush YDS')
+    by = {}
+    for blk in j.get('leaders', []) or []:
+        tn = (blk.get('team') or {}).get('displayName', '')
+        cats = {}
+        for cat in blk.get('leaders') or []:
+            l0 = (cat.get('leaders') or [{}])[0]
+            ath = l0.get('athlete') or {}
+            if ath.get('displayName'):
+                cats[cat.get('name')] = (ath['displayName'], (ath.get('position') or {}).get('abbreviation', ''), fmt(cat.get('name'), l0.get('displayValue', '') or ''),
+                                         int(re.sub(r'[^0-9]', '', (re.search(r'([\d,]+) YDS', l0.get('displayValue', '')) or [None, '0'])[1]) or 0) if league != 'NBA' else 0)
+        order = ['points', 'rebounds', 'assists'] if league == 'NBA' else ['passingYards'] + sorted(['rushingYards', 'receivingYards'], key=lambda c: -(cats.get(c, ('', '', '', 0))[3]))
+        picks, seen = [], set()
+        for c in order:
+            if c in cats and cats[c][0] not in seen:
+                picks.append(cats[c]); seen.add(cats[c][0])
+            if len(picks) == 2:
+                break
+        by[tn] = picks
+    out = []
+    for t in (away, home):
+        for nm, pos, st, _ in by.get(t['name'], []):
+            out.append({'name': nm, 'pos': pos, 'stat': st, 'team': t['name'], 'color': t.get('color') or '0a1426'})
+    return out
+
+
+def ptw_html(items, league, push_paths):
+    """photos -> img/p/<slug>.jpg (pushed with the card); returns HTML section or ''."""
+    if not items:
+        return ''
+    os.makedirs('img/p', exist_ok=True)
+    cells = []
+    for it in items:
+        ph = None
+        try:
+            ph = PL.get_photo(it['name'], 'basketball' if league == 'NBA' else 'football')
+        except Exception:
+            ph = None
+        img, cred = '', ''
+        if ph:
+            slug = re.sub(r'[^a-z0-9]+', '-', it['name'].lower()).strip('-')
+            path = f'img/p/{slug}.jpg'
+            ph[0].convert('RGB').resize((300, 300)).save(path, 'JPEG', quality=86)
+            push_paths.append(path)
+            img = (f'<img src="{REPO_RAW}{path}" alt="{esc(it["name"])}, {esc(it["team"])} {esc(it["pos"])}" width="150" height="150" '
+                   f'style="width:150px;height:150px;border-radius:50%;border:5px solid #{esc(it["color"])};object-fit:cover"/>')
+            cred = f'<br/><small>Photo: <a href="{ph[2]}" rel="nofollow noopener" target="_blank">{esc(ph[1])}</a>, Wikimedia Commons</small>'
+        cells.append(f'<div style="flex:1 1 200px;text-align:center;padding:10px">{img}'
+                     f'<p style="margin:8px 0 0"><b>{esc(it["name"])}</b>{(" &#183; " + esc(it["pos"])) if it["pos"] else ""}<br/>{esc(it["team"])}'
+                     f'{("<br/>Season: " + esc(it["stat"])) if it["stat"] else ""}{cred}</p></div>')
+    return '<h2>Players to Watch</h2>\n<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">' + ''.join(cells) + '</div>'
+
+
 def build_html(g, f, ai, img_url):
     a, h = f['away'], f['home']
     word = 'Tip-off' if f['league'] == 'NBA' else 'Kickoff'
@@ -226,9 +293,10 @@ def build_html(g, f, ai, img_url):
 <p>{esc(ai.get('intro'))}</p>
 <h2>How to Watch {esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))}</h2>
 {table}
+{f.get('ptw_html', '')}
 <h2>Game Preview</h2>
 {prev}
-{('<h2>Players and Things to Watch</h2><ul>' + keys + '</ul>') if keys else ''}
+{('<h2>Key Storylines</h2><ul>' + keys + '</ul>') if keys else ''}
 <h2>Live Score</h2>
 <p>Keep this page open during the game. The score box at the top updates automatically every 30 seconds, and the final score is added here after the game.</p>
 <h2>FAQ</h2>
@@ -267,7 +335,12 @@ def publish_preview(g, state, now):
     A = {'name': disp(f['away'], f['league']), 'logo': f['away']['logo'], 'color': f['away']['color']}
     H = {'name': disp(f['home'], f['league']), 'logo': f['home']['logo'], 'color': f['home']['color']}
     make_card(A, H, line1, line2, path, f['league'], seed=int(g['id']))
-    git_push('img ' + g['id'], [path])
+    paths = [path]
+    try:
+        f['ptw_html'] = ptw_html(f.get('ptw'), f['league'], paths)
+    except Exception as e:
+        print('ptw error', e)
+    git_push('img ' + g['id'], paths)
     r = web({'action': 'post', 'title': title_for(f), 'html': build_html(g, f, ai, REPO_RAW + path), 'labels': labels_for(f)})
     print('Published:', r.get('url'))
     state['games'][g['id']] = {'post': r['id'], 'url': r['url'], 'league': g['league'], 'ko': g['ko'].isoformat(),
