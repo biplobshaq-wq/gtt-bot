@@ -14,7 +14,7 @@
     "NBC"
    ],
    "fb": true,
-   "final": false,
+   "final": true,
    "away": "Miami",
    "home": "Notre Dame",
    "lname": "College Football"
@@ -33,7 +33,7 @@
     "ABC"
    ],
    "fb": true,
-   "final": false,
+   "final": true,
    "away": "Georgia",
    "home": "Ole Miss",
    "lname": "College Football"
@@ -151,10 +151,29 @@
    "away": "Detroit",
    "home": "Miami",
    "lname": "NFL"
+  },
+  "401873039": {
+   "post": "2514222689318076780",
+   "url": "https://gametimetonight.blogspot.com/2026/11/browns-vs-saints-kickoff-time-tv.html",
+   "league": "football/nfl",
+   "ko": "2026-11-08T18:00:00+00:00",
+   "date": "2026-11-08",
+   "score": 100,
+   "title": "Browns vs Saints: Kickoff Time, TV Channel & Live Score (Week 9)",
+   "img": "img/401873039.jpg",
+   "line1": "SUN, NOV 8 \u00b7 KICKOFF 1 PM ET",
+   "tv": [
+    "CBS"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Cleveland",
+   "home": "New Orleans",
+   "lname": "NFL"
   }
  },
  "daily": {
-  "2026-11-07": 8
+  "2026-11-07": 9
  },
  "fbdaily": {
   "2026-11-07": 3
