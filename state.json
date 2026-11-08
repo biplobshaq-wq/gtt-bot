@@ -170,10 +170,30 @@
    "away": "Cleveland",
    "home": "New Orleans",
    "lname": "NFL"
+  },
+  "401873044": {
+   "post": "6748616939799699234",
+   "url": "https://gametimetonight.blogspot.com/2026/11/giants-vs-eagles-kickoff-time-tv.html",
+   "league": "football/nfl",
+   "ko": "2026-11-08T18:00:00+00:00",
+   "date": "2026-11-08",
+   "score": 100,
+   "title": "Giants vs Eagles: Kickoff Time, TV Channel & Live Score (Week 9)",
+   "img": "img/401873044.jpg",
+   "line1": "SUN, NOV 8 \u00b7 KICKOFF 1 PM ET",
+   "tv": [
+    "Fox"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "New York",
+   "home": "Philadelphia",
+   "lname": "NFL"
   }
  },
  "daily": {
-  "2026-11-07": 9
+  "2026-11-07": 9,
+  "2026-11-08": 1
  },
  "fbdaily": {
   "2026-11-07": 3
