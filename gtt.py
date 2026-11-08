@@ -7,6 +7,7 @@ import base64, datetime as dt, html, json, os, re, subprocess, sys, time, urllib
 from zoneinfo import ZoneInfo
 from card import make_card
 from reel import make_reel
+import players as PL
 
 WEBAPP = os.environ.get('WEBAPP', '').strip()
 SECRET = os.environ.get('WEB_SECRET', '').strip()
@@ -374,15 +375,25 @@ def send_fb(state, now):
         kp = key_players(j, t['away'], t['home'], s['lname'])
     except Exception:
         kp = []
+    full, creds = [], []
+    for n_, st_, c_ in kp:
+        try:
+            ph = PL.get_photo(n_, 'basketball' if s['lname'] == 'NBA' else 'football')
+        except Exception:
+            ph = None
+        full.append((n_, st_, c_, ph[0] if ph else None, ph[1] if ph else ''))
+        if ph:
+            creds.append(ph[1])
     stream = STREAM.get((s['tv'] or [''])[0].upper(), '')
     tvline = 'TV: ' + tv + ('  \u00b7  Stream: ' + stream.split(',')[0].replace('the ', '') if stream else '')
-    make_reel(A, H, s['lname'], ko.strftime('%A, %b ').upper() + str(ko.day), word.upper() + ' ' + when, tvline, 'reel.mp4', hook=hook, seed=int(gid), players=kp)
+    make_reel(A, H, s['lname'], ko.strftime('%A, %b ').upper() + str(ko.day), word.upper() + ' ' + when, tvline, 'reel.mp4', hook=hook, seed=int(gid), players=full)
     tags = ' '.join('#' + re.sub(r'[^A-Za-z0-9]', '', x) for x in [s['away'], s['home'], s['lname']])
     ball = '\U0001F3C0' if s['lname'] == 'NBA' else '\U0001F3C8'
     cap = (f"{s['away']} vs {s['home']} \U0001F525\n{word}: {ko.strftime('%A')} at {when}\nTV: {tv}"
            + (f"\nPlayers to watch: {kp[0][0]} & {kp[1][0]}" if len(kp) == 2 else '') +
            f"\n\nWho wins? Drop your pick below {ball}"
-           f"\n\nLive score, TV channel and preview: link in the comments \U0001F447\n\n{tags}")
+           f"\n\nLive score, TV channel and preview: link in the comments \U0001F447\n\n{tags}"
+           + (("\n\nPhotos: " + "; ".join(creds) + " via Wikimedia Commons") if creds else ''))
     payload = {'video': base64.b64encode(open('reel.mp4', 'rb').read()).decode(), 'filename': gid + '.mp4',
                'title': f"{s['away']} vs {s['home']}: {word} Time & TV Channel"[:100],
                'caption': cap, 'comment': 'Live score, TV channel and preview: ' + s['url'], 'link': s['url']}
