@@ -4,7 +4,7 @@ import io, math, os, random, shutil, subprocess, urllib.request, wave
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-W, H, FPS, DUR = 1080, 1920, 30, 12.0
+W, H, FPS, DUR = 1080, 1920, 30, 15.0
 HERE = os.path.dirname(os.path.abspath(__file__))
 FB = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 FR = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
@@ -49,7 +49,7 @@ def pick_bg(league, seed):
 
 
 # ------------------------------------------------------------------ audio (original, synthesized)
-def _beat(path, dur=DUR, impacts=(0.2, 1.0, 1.25, 7.5)):
+def _beat(path, dur=DUR, impacts=(0.2, 1.6, 2.0, 2.5, 7.0, 10.5)):
     n = int(SR * dur)
     t = np.arange(n) / SR
     out = np.zeros(n)
@@ -100,7 +100,7 @@ def _beat(path, dur=DUR, impacts=(0.2, 1.0, 1.25, 7.5)):
 
 
 # ------------------------------------------------------------------ video
-def make_reel(away, home, league, dayline, timeline, tvline, out, hook='GAME DAY', seed=0, preview=None):
+def make_reel(away, home, league, dayline, timeline, tvline, out, hook='GAME DAY', seed=0, preview=None, players=None):
     """away/home: dict(name, logo, color, rank, record). hook: big first-second text e.g. 'KICKOFF IN 2 HOURS'."""
     ca, ch = _hex(away.get('color', '')), _hex(home.get('color', ''))
     la, lh = _logo(away.get('logo', ''), 270), _logo(home.get('logo', ''), 270)
@@ -134,6 +134,8 @@ def make_reel(away, home, league, dayline, timeline, tvline, out, hook='GAME DAY
     ftv = _fit(tvline, FR, W - 160, 44, 28)
     fl = ImageFont.truetype(FB, 38)
     fhook = _fit(hook.upper(), FB, W - 120, 120, 50)
+    fpt = ImageFont.truetype(FB, 42)
+    players = [(n, st, _hex(c) if isinstance(c, str) else c) for n, st, c in (players or []) if n]
 
     def sub(t):
         r = ('#%s  ' % t['rank']) if t.get('rank') and str(t.get('rank')) not in ('99', '0') else ''
@@ -221,15 +223,35 @@ def make_reel(away, home, league, dayline, timeline, tvline, out, hook='GAME DAY
             ctext(d, 250, tvline, ftv, WHITE + (int(240 * a),))
         # bottom: info panel (3.2-7.4s) then question + CTA
         y = 1610
-        if t < 7.5:
-            a = _ease((t - 3.2) / 0.5) * (1 - _ease((t - 7.0) / 0.5))
+        T1 = 7.0 if players else 10.5   # info panel ends
+        if t < T1:
+            a = _ease((t - 3.2) / 0.5) * (1 - _ease((t - (T1 - 0.5)) / 0.5))
             if a > 0:
                 d.rounded_rectangle((50, y, W - 50, H - 60), 36, fill=(6, 12, 24, int(235 * a)), outline=ORANGE + (int(255 * a),), width=4)
                 ctext(d, y + 26, dayline, fday, GOLD + (int(255 * a),))
                 ctext(d, y + 34 + fday.size + 8, timeline, ftime, WHITE + (int(255 * a),))
+        elif t < 10.5:
+            a = _ease((t - 7.0) / 0.5) * (1 - _ease((t - 10.0) / 0.5))
+            if a > 0:
+                d.rounded_rectangle((50, y, W - 50, H - 60), 36, fill=(6, 12, 24, int(235 * a)), outline=GOLD + (int(255 * a),), width=4)
+                ttl = 'PLAYERS TO WATCH'
+                ctext(d, y + 20, ttl, fpt, GOLD + (int(255 * a),))
+                yy = y + 30 + fpt.size
+                for k, (nm, st, col) in enumerate(players[:2]):
+                    ak = _ease((t - 7.3 - 0.35 * k) / 0.4) * a
+                    if ak <= 0:
+                        continue
+                    line = nm + ('  \u00b7  ' + st if st else '')
+                    f = _fit(line, FB, W - 230, 44, 26)
+                    x = (W - f.getlength(line) - 50) / 2
+                    d.ellipse((x, yy + f.size * 0.25, x + 30, yy + f.size * 0.25 + 30), fill=col + (int(255 * ak),), outline=WHITE + (int(255 * ak),), width=3)
+                    d.text((x + 50, yy), nm, font=f, fill=WHITE + (int(255 * ak),))
+                    if st:
+                        d.text((x + 50 + f.getlength(nm), yy), '  \u00b7  ' + st, font=f, fill=(200, 210, 230, int(255 * ak)))
+                    yy += f.size + 22
         else:
-            a = _ease((t - 7.5) / 0.5)
-            p = 1 + 0.025 * math.sin((t - 7.5) * 7)
+            a = _ease((t - 10.5) / 0.5)
+            p = 1 + 0.025 * math.sin((t - 10.5) * 7)
             bx0, bx1 = int(50 + (1 - p) * 300), int(W - 50 - (1 - p) * 300)
             d.rounded_rectangle((bx0, y, bx1, H - 50), 36, fill=GOLD + (int(250 * a),))
             l0, l1, l2 = 'WHO WINS? Comment your pick', 'Live score + where to watch', 'Link in the comments \u2193'
