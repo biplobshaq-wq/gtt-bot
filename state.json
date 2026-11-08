@@ -72,8 +72,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Tampa Bay",
-   "home": "Chicago",
+   "away": "Buccaneers",
+   "home": "Bears",
    "lname": "NFL"
   },
   "401873038": {
@@ -91,8 +91,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Cincinnati",
-   "home": "Atlanta",
+   "away": "Bengals",
+   "home": "Falcons",
    "lname": "NFL"
   },
   "401873040": {
@@ -110,8 +110,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Dallas",
-   "home": "Indianapolis",
+   "away": "Cowboys",
+   "home": "Colts",
    "lname": "NFL"
   },
   "401873045": {
@@ -129,8 +129,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "New York",
-   "home": "Kansas City",
+   "away": "Jets",
+   "home": "Chiefs",
    "lname": "NFL"
   },
   "401873042": {
@@ -148,8 +148,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Detroit",
-   "home": "Miami",
+   "away": "Lions",
+   "home": "Dolphins",
    "lname": "NFL"
   },
   "401873039": {
@@ -167,8 +167,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Cleveland",
-   "home": "New Orleans",
+   "away": "Browns",
+   "home": "Saints",
    "lname": "NFL"
   },
   "401873044": {
@@ -186,8 +186,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "New York",
-   "home": "Philadelphia",
+   "away": "Giants",
+   "home": "Eagles",
    "lname": "NFL"
   },
   "401873043": {
@@ -205,8 +205,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Los Angeles",
-   "home": "Washington",
+   "away": "Rams",
+   "home": "Commanders",
    "lname": "NFL"
   },
   "401873041": {
@@ -224,8 +224,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Denver",
-   "home": "Carolina",
+   "away": "Broncos",
+   "home": "Panthers",
    "lname": "NFL"
   },
   "401873046": {
@@ -243,8 +243,8 @@
    ],
    "fb": false,
    "final": false,
-   "away": "Houston",
-   "home": "Los Angeles",
+   "away": "Texans",
+   "home": "Chargers",
    "lname": "NFL"
   }
  },
