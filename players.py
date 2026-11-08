@@ -44,7 +44,7 @@ def _face_crop(im, size=420):
 
 
 def get_photo(name, sport='football'):
-    """-> (PIL.Image RGBA square, 'Artist (LICENSE)') or None"""
+    """-> (PIL.Image square, 'Artist (LICENSE)', commons_file_url) or None"""
     kw = 'basketball' if sport == 'basketball' else 'football'
     for title in (name, name + (' (basketball)' if kw == 'basketball' else ' (American football)')):
         try:
@@ -69,7 +69,7 @@ def get_photo(name, sport='football'):
             art = re.sub(r'\s+', ' ', art)[:40] or 'Wikimedia Commons'
             raw = urllib.request.urlopen(urllib.request.Request(ii.get('thumburl') or ii['url'], headers=UA), timeout=30).read()
             im = Image.open(io.BytesIO(raw)).convert('RGB')
-            return _face_crop(im), f'{art} ({lic})'
+            return _face_crop(im), f'{art} ({lic})', 'https://commons.wikimedia.org/wiki/File:' + urllib.parse.quote(pg['pageimage'].replace(' ', '_'))
         except Exception:
             return None
     return None
