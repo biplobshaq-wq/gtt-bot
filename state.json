@@ -265,11 +265,30 @@
    "away": "Packers",
    "home": "Patriots",
    "lname": "NFL"
+  },
+  "401873047": {
+   "post": "1758760887317153795",
+   "url": "https://gametimetonight.blogspot.com/2026/11/raiders-vs-49ers-kickoff-time-tv.html",
+   "league": "football/nfl",
+   "ko": "2026-11-08T21:25:00+00:00",
+   "date": "2026-11-08",
+   "score": 100,
+   "title": "Raiders vs 49ers: Kickoff Time, TV Channel & Live Score (Week 9)",
+   "img": "img/401873047.jpg",
+   "line1": "SUN, NOV 8 \u00b7 KICKOFF 4:25 PM ET",
+   "tv": [
+    "Fox"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Raiders",
+   "home": "49ers",
+   "lname": "NFL"
   }
  },
  "daily": {
   "2026-11-07": 9,
-  "2026-11-08": 5
+  "2026-11-08": 6
  },
  "fbdaily": {
   "2026-11-07": 3
