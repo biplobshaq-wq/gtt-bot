@@ -132,10 +132,29 @@
    "away": "New York",
    "home": "Kansas City",
    "lname": "NFL"
+  },
+  "401873042": {
+   "post": "270055956326947091",
+   "url": "https://gametimetonight.blogspot.com/2026/11/lions-vs-dolphins-kickoff-time-tv.html",
+   "league": "football/nfl",
+   "ko": "2026-11-08T18:00:00+00:00",
+   "date": "2026-11-08",
+   "score": 100,
+   "title": "Lions vs Dolphins: Kickoff Time, TV Channel & Live Score (Week 9)",
+   "img": "img/401873042.jpg",
+   "line1": "SUN, NOV 8 \u00b7 KICKOFF 1 PM ET",
+   "tv": [
+    "Fox"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Detroit",
+   "home": "Miami",
+   "lname": "NFL"
   }
  },
  "daily": {
-  "2026-11-07": 7
+  "2026-11-07": 8
  },
  "fbdaily": {
   "2026-11-07": 3
