@@ -22,15 +22,24 @@ def _fit(d, text, path, maxw, start, minsize=26):
     while s > minsize and d.textlength(text, font=ImageFont.truetype(path, s)) > maxw: s -= 2
     return ImageFont.truetype(path, s)
 
-def make_card(away, home, line1, line2, out, league=''):
+def make_card(away, home, line1, line2, out, league='', seed=0):
     """away/home: dict(name, abbr, logo, color)."""
-    im = Image.new('RGB', (W, H), NAVY)
-    d = ImageDraw.Draw(im, 'RGBA')
     ca, ch = _hex(away.get('color', '')), _hex(home.get('color', ''))
-    # diagonal team colour halves
-    d.polygon([(0, 0), (650, 0), (550, H), (0, H)], fill=ca + (255,))
-    d.polygon([(650, 0), (W, 0), (W, H), (550, H)], fill=ch + (255,))
-    im = Image.alpha_composite(im.convert('RGBA'), Image.new('RGBA', (W, H), (8, 14, 28, 150)))
+    try:
+        from reel import pick_bg
+        bgp = pick_bg(league or '', seed)
+        b = Image.open(bgp).convert('RGB')
+        b = b.resize((W, int(b.height * W / b.width)), Image.LANCZOS)
+        y0 = int(b.height * 0.42) - H // 2
+        im = b.crop((0, y0, W, y0 + H)).convert('RGBA')
+    except Exception:
+        im = Image.new('RGBA', (W, H), NAVY + (255,))
+    tint = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    td = ImageDraw.Draw(tint)
+    td.polygon([(0, 0), (650, 0), (550, H), (0, H)], fill=ca + (120,))
+    td.polygon([(650, 0), (W, 0), (W, H), (550, H)], fill=ch + (120,))
+    im = Image.alpha_composite(im, tint)
+    im = Image.alpha_composite(im, Image.new('RGBA', (W, H), (8, 14, 28, 95)))
     d = ImageDraw.Draw(im, 'RGBA')
     d.line([(650, 0), (550, H)], fill=GOLD + (255,), width=6)
     # top strip
@@ -41,7 +50,9 @@ def make_card(away, home, line1, line2, out, league=''):
         fl = ImageFont.truetype(FB, 26); tw = d.textlength(league.upper(), font=fl)
         d.rounded_rectangle((W - tw - 64, 12, W - 24, 52), 20, fill=ORANGE); d.text((W - tw - 44, 17), league.upper(), font=fl, fill=(255, 255, 255))
     for t, cx in ((away, 300), (home, 900)):
-        d.ellipse((cx - 140, 85, cx + 140, 365), fill=(255, 255, 255, 235))
+        col = ca if t is away else ch
+        d.ellipse((cx - 152, 73, cx + 152, 377), fill=col + (255,))
+        d.ellipse((cx - 140, 85, cx + 140, 365), fill=(255, 255, 255, 245))
         lg = _logo(t.get('logo', ''), 200)
         if lg:
             sh = Image.new('RGBA', (W, H), (0, 0, 0, 0)); sh.paste((0, 0, 0, 60), (cx - lg.width // 2 + 4, 125 + (200 - lg.height) // 2 + 4), lg)
