@@ -166,7 +166,7 @@
     "CBS"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Browns",
    "home": "Saints",
    "lname": "NFL"
@@ -185,7 +185,7 @@
     "Fox"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Giants",
    "home": "Eagles",
    "lname": "NFL"
@@ -204,7 +204,7 @@
     "Fox"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Rams",
    "home": "Commanders",
    "lname": "NFL"
