@@ -135,7 +135,78 @@ def make_reel(away, home, league, dayline, timeline, tvline, out, hook='GAME DAY
     fl = ImageFont.truetype(FB, 38)
     fhook = _fit(hook.upper(), FB, W - 120, 120, 50)
     fpt = ImageFont.truetype(FB, 42)
-    players = [(n, st, _hex(c) if isinstance(c, str) else c) for n, st, c in (players or []) if n]
+    pl = []
+    for it in (players or [])[:2]:
+        n, st, c = it[0], it[1], it[2]
+        ph = it[3] if len(it) > 3 else None
+        cr = it[4] if len(it) > 4 else ''
+        if n:
+            pl.append((n, st, _hex(c) if isinstance(c, str) else c, ph, cr))
+    players = pl
+    logos_by_col = [la, lh]
+    pcirc = []
+    for k, p_ in enumerate(players):
+        r = 200
+        src = p_[3] if p_[3] is not None else None
+        if src is None:
+            src = Image.new('RGBA', (2 * r, 2 * r), (255, 255, 255, 255))
+            lg = logos_by_col[k] if k < 2 else None
+            if lg:
+                lg2 = lg.copy(); lg2.thumbnail((int(r * 1.3), int(r * 1.3)))
+                src.alpha_composite(lg2, (r - lg2.width // 2, r - lg2.height // 2))
+        src = src.convert('RGBA').resize((2 * r, 2 * r), Image.LANCZOS)
+        m = Image.new('L', (2 * r, 2 * r), 0); ImageDraw.Draw(m).ellipse((0, 0, 2 * r - 1, 2 * r - 1), fill=255)
+        src.putalpha(m)
+        pcirc.append(src)
+    credits = ' \u00b7 '.join(p_[4] for p_ in players if p_[3] is not None and p_[4])
+    fcred = _fit('Photos: ' + credits + ' / Wikimedia Commons', FR, W - 140, 24, 16) if credits else None
+    fpn = ImageFont.truetype(FB, 46)
+    fps = ImageFont.truetype(FB, 36)
+
+    def scene(im, t):
+        sc = _ease((t - 6.8) / 0.4) * (1 - _ease((t - 10.2) / 0.4))
+        if sc <= 0:
+            return im
+        lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+        dl = ImageDraw.Draw(lay)
+        dl.rounded_rectangle((36, 300, W - 36, 1590), 44, fill=(6, 12, 24, int(250 * sc)), outline=GOLD + (int(255 * sc),), width=5)
+        ttl = 'PLAYERS TO WATCH'
+        dl.text(((W - fpt.getlength(ttl)) / 2, 400), ttl, font=fpt, fill=GOLD + (int(255 * sc),))
+        n = len(players)
+        cols = [W // 2] if n == 1 else [W // 4 + 20, 3 * W // 4 - 20]
+        for k, (nm, st, col, ph, cr) in enumerate(players):
+            ak = _ease((t - 7.0 - 0.3 * k) / 0.45) * sc
+            if ak <= 0:
+                continue
+            cx, cy, r = cols[k], 790, 200
+            rr = int(r * (0.7 + 0.3 * ak))
+            dl.ellipse((cx - rr - 14, cy - rr - 14, cx + rr + 14, cy + rr + 14), fill=col + (int(255 * ak),))
+            pc = pcirc[k].resize((2 * rr, 2 * rr), Image.BILINEAR)
+            if ak < 1:
+                pc.putalpha(pc.split()[3].point(lambda v: int(v * ak)))
+            lay.alpha_composite(pc, (cx - rr, cy - rr))
+            dl = ImageDraw.Draw(lay)
+            fn = _fit(nm, FB, W // 2 - 60, 46, 26)
+            dl.text((cx - fn.getlength(nm) / 2, 1050), nm, font=fn, fill=WHITE + (int(255 * ak),))
+            if st:
+                fs = _fit(st, FB, W // 2 - 60, 36, 22)
+                dl.text((cx - fs.getlength(st) / 2, 1115), st, font=fs, fill=GOLD + (int(255 * ak),))
+        tn = (away['name'].upper(), home['name'].upper())
+        for k in range(min(n, 2)):
+            ak = _ease((t - 7.3 - 0.3 * k) / 0.45) * sc
+            if ak > 0:
+                f = _fit(tn[k], FR, W // 2 - 80, 32, 20)
+                dl.text((cols[k] - f.getlength(tn[k]) / 2, 1170), tn[k], font=f, fill=(200, 210, 230, int(255 * ak)))
+        if n == 2:
+            a2 = _ease((t - 7.6) / 0.3) * sc
+            dl.ellipse((W // 2 - 56, 790 - 56, W // 2 + 56, 790 + 56), fill=(6, 12, 24, int(250 * a2)), outline=GOLD + (int(255 * a2),), width=5)
+            vf = ImageFont.truetype(FB, 42)
+            dl.text((W / 2 - vf.getlength('VS') / 2, 790 - 26), 'VS', font=vf, fill=GOLD + (int(255 * a2),))
+        if fcred:
+            line = 'Photos: ' + credits + ' / Wikimedia Commons'
+            dl.text(((W - fcred.getlength(line)) / 2, 1530), line, font=fcred, fill=(170, 180, 200, int(230 * sc)))
+        im.alpha_composite(lay)
+        return im
 
     def sub(t):
         r = ('#%s  ' % t['rank']) if t.get('rank') and str(t.get('rank')) not in ('99', '0') else ''
@@ -223,32 +294,16 @@ def make_reel(away, home, league, dayline, timeline, tvline, out, hook='GAME DAY
             ctext(d, 250, tvline, ftv, WHITE + (int(240 * a),))
         # bottom: info panel (3.2-7.4s) then question + CTA
         y = 1610
-        T1 = 7.0 if players else 10.5   # info panel ends
+        T1 = 10.5
         if t < T1:
             a = _ease((t - 3.2) / 0.5) * (1 - _ease((t - (T1 - 0.5)) / 0.5))
             if a > 0:
                 d.rounded_rectangle((50, y, W - 50, H - 60), 36, fill=(6, 12, 24, int(235 * a)), outline=ORANGE + (int(255 * a),), width=4)
                 ctext(d, y + 26, dayline, fday, GOLD + (int(255 * a),))
                 ctext(d, y + 34 + fday.size + 8, timeline, ftime, WHITE + (int(255 * a),))
-        elif t < 10.5:
-            a = _ease((t - 7.0) / 0.5) * (1 - _ease((t - 10.0) / 0.5))
-            if a > 0:
-                d.rounded_rectangle((50, y, W - 50, H - 60), 36, fill=(6, 12, 24, int(235 * a)), outline=GOLD + (int(255 * a),), width=4)
-                ttl = 'PLAYERS TO WATCH'
-                ctext(d, y + 20, ttl, fpt, GOLD + (int(255 * a),))
-                yy = y + 30 + fpt.size
-                for k, (nm, st, col) in enumerate(players[:2]):
-                    ak = _ease((t - 7.3 - 0.35 * k) / 0.4) * a
-                    if ak <= 0:
-                        continue
-                    line = nm + ('  \u00b7  ' + st if st else '')
-                    f = _fit(line, FB, W - 230, 44, 26)
-                    x = (W - f.getlength(line) - 50) / 2
-                    d.ellipse((x, yy + f.size * 0.25, x + 30, yy + f.size * 0.25 + 30), fill=col + (int(255 * ak),), outline=WHITE + (int(255 * ak),), width=3)
-                    d.text((x + 50, yy), nm, font=f, fill=WHITE + (int(255 * ak),))
-                    if st:
-                        d.text((x + 50 + f.getlength(nm), yy), '  \u00b7  ' + st, font=f, fill=(200, 210, 230, int(255 * ak)))
-                    yy += f.size + 22
+            if players:
+                im = scene(im, t)
+                d = ImageDraw.Draw(im, 'RGBA')
         else:
             a = _ease((t - 10.5) / 0.5)
             p = 1 + 0.025 * math.sin((t - 10.5) * 7)
