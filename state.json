@@ -242,7 +242,7 @@
     "CBS"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Texans",
    "home": "Chargers",
    "lname": "NFL"
@@ -261,7 +261,7 @@
     "Fox"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Packers",
    "home": "Patriots",
    "lname": "NFL"
@@ -280,7 +280,7 @@
     "Fox"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Raiders",
    "home": "49ers",
    "lname": "NFL"
