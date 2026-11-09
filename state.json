@@ -562,12 +562,33 @@
    "away": "Nuggets",
    "home": "Rockets",
    "lname": "NBA"
+  },
+  "401909958": {
+   "post": "2975602875052130314",
+   "url": "https://gametimetonight.blogspot.com/2026/11/spurs-vs-suns-tip-off-time-tv-channel.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-10T02:00:00+00:00",
+   "date": "2026-11-09",
+   "score": 20,
+   "title": "Spurs vs Suns: Tip-Off Time, TV Channel & Live Score (November 9)",
+   "img": "img/401909958.jpg",
+   "line1": "MON, NOV 9 \u00b7 TIP-OFF 9 PM ET",
+   "tv": [
+    "Arizona's Family 3TV",
+    "Suns Live",
+    "DAZN SAS"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Spurs",
+   "home": "Suns",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
   "2026-11-08": 12,
-  "2026-11-09": 8
+  "2026-11-09": 9
  },
  "fbdaily": {
   "2026-11-07": 3,
