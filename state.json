@@ -299,7 +299,7 @@
     "Fox"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Cardinals",
    "home": "Seahawks",
    "lname": "NFL"
@@ -320,7 +320,7 @@
     "Spectrum Sports Net +"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Lakers",
    "home": "Pistons",
    "lname": "NBA"
@@ -358,7 +358,7 @@
     "Jazz+"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Jazz",
    "home": "Timberwolves",
    "lname": "NBA"
