@@ -379,7 +379,7 @@
     "MavsTV"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Nets",
    "home": "Mavericks",
    "lname": "NBA"
@@ -399,7 +399,7 @@
     "Bucks App"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Celtics",
    "home": "Bucks",
    "lname": "NBA"
