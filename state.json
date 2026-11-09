@@ -602,12 +602,33 @@
    "away": "Celtics",
    "home": "76ers",
    "lname": "NBA"
+  },
+  "401909965": {
+   "post": "2951322773345487440",
+   "url": "https://gametimetonight.blogspot.com/2026/11/thunder-vs-trail-blazers-tip-off-time.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-11T04:00:00+00:00",
+   "date": "2026-11-10",
+   "score": 50,
+   "title": "Thunder vs Trail Blazers: Tip-Off Time, TV Channel & Live Score (November 10)",
+   "img": "img/401909965.jpg",
+   "line1": "TUE, NOV 10 \u00b7 TIP-OFF 11 PM ET",
+   "tv": [
+    "NBC",
+    "KSBI",
+    "Thunder App"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Thunder",
+   "home": "Trail Blazers",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
   "2026-11-08": 12,
-  "2026-11-09": 10
+  "2026-11-09": 11
  },
  "fbdaily": {
   "2026-11-07": 3,
