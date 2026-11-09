@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 from card import make_card
 from reel import make_reel
 import players as PL
+import card3
 
 WEBAPP = os.environ.get('WEBAPP', '').strip()
 SECRET = os.environ.get('WEB_SECRET', '').strip()
@@ -17,6 +18,7 @@ REPO_RAW = 'https://raw.githubusercontent.com/biplobshaq-wq/gtt-bot/main/'
 ET, PT, CT = ZoneInfo('America/New_York'), ZoneInfo('America/Los_Angeles'), ZoneInfo('America/Chicago')
 DAILY_CAP = int(os.environ.get('DAILY_CAP', '12'))
 FB_DAILY_CAP = 3   # Make free plan: ~5 credits per reel
+PHOTO_HOURS = (10, 14)  # ET window for the daily informative photo post (2 credits)
 STATE = 'state.json'
 ESPN = 'https://site.api.espn.com/apis/site/v2/sports/'
 LEAGUES = [('football/nfl', 'NFL'), ('football/college-football', 'College Football'), ('basketball/nba', 'NBA')]
@@ -288,7 +290,8 @@ def build_html(g, f, ai, img_url):
     prev = ''.join(f'<p>{esc(p)}</p>' for p in ai.get('preview', [])[:3])
     keys = ''.join(f'<li>{esc(k)}</li>' for k in ai.get('keys', [])[:3])
     faq = ''.join(f"<p><b>{esc(x.get('q'))}</b><br/>{esc(x.get('a'))}</p>" for x in ai.get('faq', [])[:4] if isinstance(x, dict))
-    return f"""<img alt="{esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))} {word.lower()} time and TV channel" src="{img_url}" width="1200" height="675"/>
+    credit = f"<br/><small>Player photos: {esc(f['card_credit'])}</small>" if f.get('card_credit') else ''
+    return f"""<img alt="{esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))} {word.lower()} time and TV channel" src="{img_url}" width="1200" height="675"/>{credit}
 <p>{esc(ai.get('intro'))}</p>
 <div class="gtt-live" data-league="{g['league']}" data-event="{g['id']}"><div class="st">Loading live score…</div></div>
 <h2>How to Watch {esc(disp(a, f['league']))} vs {esc(disp(h, f['league']))}</h2>
@@ -334,8 +337,16 @@ def publish_preview(g, state, now):
     path = f"img/{g['id']}.jpg"
     A = {'name': disp(f['away'], f['league']), 'logo': f['away']['logo'], 'color': f['away']['color']}
     H = {'name': disp(f['home'], f['league']), 'logo': f['home']['logo'], 'color': f['home']['color']}
-    make_card(A, H, line1, line2, path, f['league'], seed=int(g['id']))
     paths = [path]
+    try:
+        j3 = get_json(ESPN + g['league'] + '/summary?event=' + g['id'])
+        _, creds3, _ = make_thumb3(j3, f['league'], g['ko'], g['tv'], path, int(g['id']))
+        f['card_credit'] = '; '.join(creds3)
+        if os.path.isdir('img/cut'):
+            paths += ['img/cut']
+    except Exception as e:
+        print('card3 error, fallback', e)
+        make_card(A, H, line1, line2, path, f['league'], seed=int(g['id']))
     try:
         f['ptw_html'] = ptw_html(f.get('ptw'), f['league'], paths)
     except Exception as e:
@@ -418,6 +429,123 @@ def key_players(j, away, home, league):
     return res
 
 
+ORD = {1: '1st', 2: '2nd', 3: '3rd'}
+CONF = {'Atlantic Coast Conference': 'ACC', 'Southeastern Conference': 'SEC', 'Big Ten Conference': 'Big Ten', 'Big 12 Conference': 'Big 12',
+        'American Athletic Conference': 'AAC', 'Mountain West Conference': 'Mountain West', 'Conference USA': 'C-USA',
+        'Mid-American Conference': 'MAC', 'Sun Belt Conference': 'Sun Belt', 'Pac-12 Conference': 'Pac-12',
+        'Eastern Conference': 'East', 'Western Conference': 'West'}
+
+
+def thumb_info(j, lname, ko, tv, rel=False):
+    """data for card3.make_thumb from an ESPN summary json."""
+    comp = j['header']['competitions'][0]
+    T = {}
+    for c in comp['competitors']:
+        t = c['team']; o = team_obj(c)
+        T[c['homeAway']] = dict(name=o['name'], short=disp(o, lname), nick=o.get('nick') or '', logo=o['logo'], color=o['color'],
+                                alt=t.get('alternateColor', ''), record=o.get('record') or '')
+        r = o.get('rank')
+        if lname == 'College Football' and isinstance(r, int) and 0 < r <= 25:
+            T[c['homeAway']]['rank'] = 'AP #%d' % r
+    for grp in ((j.get('standings') or {}).get('groups') or []):
+        div = re.sub(r'^\d{4}(-\d{2})? | Standings$', '', grp.get('header', '')).strip()
+        div = CONF.get(div, div)
+        for i, e in enumerate((grp.get('standings') or {}).get('entries') or []):
+            for x in T.values():
+                if not x.get('rank') and (x['name'].startswith(e.get('team', '#')) or x['name'] == e.get('team')):
+                    x['rank'] = ORD.get(i + 1, '%dth' % (i + 1)) + ' ' + div
+    cands = {}
+    for blk in j.get('leaders', []) or []:
+        tn = (blk.get('team') or {}).get('displayName', '')
+        side = 'away' if tn == T['away']['name'] else 'home' if tn == T['home']['name'] else None
+        if not side:
+            continue
+        names = []
+        for cat in (blk.get('leaders') or [])[:3]:
+            l0 = (cat.get('leaders') or [{}])[0]
+            nm = (l0.get('athlete') or {}).get('displayName')
+            dv = l0.get('displayValue', '') or ''
+            if lname == 'NBA' and re.fullmatch(r'[\d.]+', dv):
+                dv += ' ' + (cat.get('abbreviation') or cat.get('shortDisplayName') or '').upper()
+                dv = dv.replace(' PTS', ' PPG' if '.' in dv else ' PTS')
+            if nm and nm not in [n for n, _ in names]:
+                names.append((nm, dv.strip()))
+        cands[side] = sorted(names, key=lambda x: -card3.popularity(x[0]))
+    k = ko.astimezone(ET)
+    word = 'TIP-OFF' if lname == 'NBA' else 'KICKOFF'
+    tm = k.strftime('%-I:%M %p ET').replace(':00 ', ' ')
+    if rel:
+        ko_text = 'TONIGHT ' + tm if k.hour >= 17 else 'TODAY ' + tm
+    else:
+        ko_text = k.strftime('%a %b ').upper() + str(k.day) + ' • ' + tm
+    if lname == 'NFL':
+        wd = k.strftime('%A')
+        hl = {'Monday': 'Monday Night Football', 'Thursday': 'Thursday Night Football'}.get(wd) or (
+            'Sunday Night Football' if wd == 'Sunday' and k.hour >= 19 else 'NFL Week %s' % (j['header'].get('week') or ''))
+    elif lname == 'NBA':
+        hl = 'NBA Tonight' if rel else 'NBA ' + word.title()
+    else:
+        both = all(T[x].get('rank', '').startswith('AP') for x in T)
+        hl = 'Top-25 Showdown' if both else 'College Football'
+    v = (j.get('gameInfo') or {}).get('venue') or {}
+    a = v.get('address') or {}
+    venue = ', '.join(x for x in [v.get('fullName'), a.get('city'), a.get('state')] if x)
+    return dict(league=lname, headline=hl.strip(), away=T['away'], home=T['home'], cands=cands,
+                ko_text=ko_text, venue=venue, tv=' / '.join(tv[:2]) if tv else '')
+
+
+def make_thumb3(j, lname, ko, tv, out, seed, rel=False):
+    from reel import pick_bg
+    info = thumb_info(j, lname, ko, tv, rel)
+    try:
+        bg = pick_bg(lname, seed)
+    except Exception:
+        bg = None
+    p, creds = card3.make_thumb(info, out, bg)
+    return p, creds, info
+
+
+def send_photo(state, now):
+    """1 informative photo post per ET day (biggest game of the day) - no link, question CTA."""
+    if not FB_HOOK:
+        return
+    k = now.astimezone(ET); day = k.strftime('%Y-%m-%d')
+    if state.setdefault('fbphoto', {}).get(day) or not (PHOTO_HOURS[0] <= k.hour < PHOTO_HOURS[1]):
+        return
+    pend = [(gid, s) for gid, s in state['games'].items() if s.get('score', 0) >= 40
+            and dt.timedelta(hours=2) < dt.datetime.fromisoformat(s['ko']) - now <= dt.timedelta(hours=14)]
+    if not pend:
+        return
+    gid, s = max(pend, key=lambda x: x[1]['score'])
+    j = get_json(ESPN + s['league'] + '/summary?event=' + gid)
+    ko = dt.datetime.fromisoformat(s['ko'])
+    p, creds, info = make_thumb3(j, s['lname'], ko, s['tv'], 'photo.jpg', int(gid), rel=True)
+    A, H = info['away'], info['home']
+    word = 'Tip-off' if s['lname'] == 'NBA' else 'Kickoff'
+    ball = '\U0001F3C0' if s['lname'] == 'NBA' else '\U0001F3C8'
+    when = ko.astimezone(ET).strftime('%-I:%M %p ET').replace(':00 ', ' ')
+    pl = info.get('players') or {}
+    def short(st):
+        y = re.search(r'([\d,]+ YDS)', st or ''); td = re.search(r'(\d+ TD)', st or '')
+        if y:
+            return ', '.join(x.group(1) for x in (y, td) if x)
+        return (st or '').split(',')[0][:22]
+    stars = ' vs '.join(f"{n} ({short(st)})" if short(st) else n for n, st in [pl.get('away') or ('', ''), pl.get('home') or ('', '')] if n)
+    info_lines = [f"{ball} {info['headline']}: {A['short']} ({A['record']}) at {H['short']} ({H['record']})".replace(' ()', ''),
+                  f"\U0001F4CD {info['venue']}" if info['venue'] else '',
+                  f"\u23F0 {word}: {when}" + (f"  |  \U0001F4FA {info['tv']}" if info['tv'] else ''),
+                  (f"\U0001F4CA {A['short']}: {A['rank']}  |  {H['short']}: {H['rank']}" if A.get('rank') and H.get('rank') else ''),
+                  (f"\u2B50 Stars to watch: {stars}" if stars else '')]
+    tags = ' '.join('#' + re.sub(r'[^A-Za-z0-9]', '', x) for x in [s['away'], s['home'], s['lname'], 'GameDay'])
+    cap = '\n'.join(x for x in info_lines if x) + f"\n\nWho wins? Comment your pick and final score {ball}\U0001F447\n\n" + tags
+    if creds:
+        cap += '\n\nPhotos: ' + '; '.join(creds)
+    payload = {'kind': 'photo', 'photo': base64.b64encode(open(p, 'rb').read()).decode(), 'filename': gid + '.jpg', 'caption': cap}
+    req = urllib.request.Request(FB_HOOK, data=json.dumps(payload).encode(), headers={'Content-Type': 'application/json'})
+    print('FB photo:', s['away'], 'vs', s['home'], urllib.request.urlopen(req, timeout=120).read().decode()[:100])
+    state['fbphoto'][day] = gid
+
+
 def send_fb(state, now):
     if not FB_HOOK:
         return
@@ -489,6 +617,10 @@ def main():
         send_fb(state, now)
     except Exception as e:
         print('fb error', e)
+    try:
+        send_photo(state, now)
+    except Exception as e:
+        print('fb photo error', e)
     day = now.astimezone(ET).strftime('%Y-%m-%d')
     if state['daily'].get(day, 0) < DAILY_CAP and os.environ.get('NO_POST') != '1':
         c = [g for g in candidates(now) if g['id'] not in state['games']
