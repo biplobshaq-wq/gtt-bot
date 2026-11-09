@@ -418,7 +418,7 @@
     "ESPN",
     "ABC"
    ],
-   "fb": false,
+   "fb": true,
    "final": false,
    "away": "Bills",
    "home": "Vikings",
@@ -583,16 +583,36 @@
    "away": "Spurs",
    "home": "Suns",
    "lname": "NBA"
+  },
+  "401909961": {
+   "post": "5133110421882586973",
+   "url": "https://gametimetonight.blogspot.com/2026/11/celtics-vs-76ers-tip-off-time-tv.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-11T01:00:00+00:00",
+   "date": "2026-11-10",
+   "score": 50,
+   "title": "Celtics vs 76ers: Tip-Off Time, TV Channel & Live Score (November 10)",
+   "img": "img/401909961.jpg",
+   "line1": "TUE, NOV 10 \u00b7 TIP-OFF 8 PM ET",
+   "tv": [
+    "NBC"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Celtics",
+   "home": "76ers",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
   "2026-11-08": 12,
-  "2026-11-09": 9
+  "2026-11-09": 10
  },
  "fbdaily": {
   "2026-11-07": 3,
-  "2026-11-08": 3
+  "2026-11-08": 3,
+  "2026-11-09": 1
  },
  "fbphoto": {
   "2026-11-09": "401873051"
