@@ -444,12 +444,32 @@
    "away": "Pelicans",
    "home": "Warriors",
    "lname": "NBA"
+  },
+  "401909952": {
+   "post": "9070830400345461360",
+   "url": "https://gametimetonight.blogspot.com/2026/11/lakers-vs-hawks-tip-off-time-tv-channel.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-10T00:00:00+00:00",
+   "date": "2026-11-09",
+   "score": 20,
+   "title": "Lakers vs Hawks: Tip-Off Time, TV Channel & Live Score (November 9)",
+   "img": "img/401909952.jpg",
+   "line1": "MON, NOV 9 \u00b7 TIP-OFF 7 PM ET",
+   "tv": [
+    "Spectrum Sports Net",
+    "Spectrum Sports Net +"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Lakers",
+   "home": "Hawks",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
   "2026-11-08": 12,
-  "2026-11-09": 2
+  "2026-11-09": 3
  },
  "fbdaily": {
   "2026-11-07": 3,
