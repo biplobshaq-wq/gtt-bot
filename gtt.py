@@ -17,7 +17,8 @@ BLOG_ID = '8757754119349417883'
 REPO_RAW = 'https://raw.githubusercontent.com/biplobshaq-wq/gtt-bot/main/'
 ET, PT, CT = ZoneInfo('America/New_York'), ZoneInfo('America/Los_Angeles'), ZoneInfo('America/Chicago')
 DAILY_CAP = int(os.environ.get('DAILY_CAP', '12'))
-FB_DAILY_CAP = 3   # Make free plan: ~5 credits per reel
+FB_DAILY_CAP = 2   # owner rule: max 2 reels/day
+FB_GAP_HOURS = 4  # owner rule: reels hours apart
 PHOTO_HOURS = (10, 14)  # ET window for the daily informative photo post (2 credits)
 STATE = 'state.json'
 ESPN = 'https://site.api.espn.com/apis/site/v2/sports/'
@@ -552,6 +553,9 @@ def send_fb(state, now):
     day = now.astimezone(ET).strftime('%Y-%m-%d')
     if state['fbdaily'].get(day, 0) >= FB_DAILY_CAP:
         return
+    last = state.get('last_fb')
+    if last and now - dt.datetime.fromisoformat(last) < dt.timedelta(hours=FB_GAP_HOURS):
+        return
     pend = [(gid, s) for gid, s in state['games'].items() if not s.get('fb') and s.get('score', 0) >= 50
             and dt.timedelta(0) < dt.datetime.fromisoformat(s['ko']) - now <= dt.timedelta(hours=3)]
     if not pend:
@@ -602,6 +606,7 @@ def send_fb(state, now):
     print('FB reel:', s['away'], 'vs', s['home'], urllib.request.urlopen(req, timeout=120).read().decode()[:100])
     s['fb'] = True
     state['fbdaily'][day] = state['fbdaily'].get(day, 0) + 1
+    state['last_fb'] = now.isoformat()
 
 
 def main():
