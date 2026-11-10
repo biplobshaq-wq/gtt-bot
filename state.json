@@ -517,7 +517,7 @@
     "DAZN MEM"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Grizzlies",
    "home": "Raptors",
    "lname": "NBA"
@@ -538,7 +538,7 @@
     "DAZN IND"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Pacers",
    "home": "Mavericks",
    "lname": "NBA"
