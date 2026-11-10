@@ -439,7 +439,7 @@
     "GCSEN",
     "Pelicans.com"
    ],
-   "fb": false,
+   "fb": true,
    "final": false,
    "away": "Pelicans",
    "home": "Warriors",
@@ -633,7 +633,7 @@
  "fbdaily": {
   "2026-11-07": 3,
   "2026-11-08": 3,
-  "2026-11-09": 1
+  "2026-11-09": 2
  },
  "fbphoto": {
   "2026-11-09": "401873051"
