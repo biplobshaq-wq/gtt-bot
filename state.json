@@ -419,7 +419,7 @@
     "ABC"
    ],
    "fb": true,
-   "final": false,
+   "final": true,
    "away": "Bills",
    "home": "Vikings",
    "lname": "NFL"
@@ -558,7 +558,7 @@
     "KUSA-TV (9NEWS)"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Nuggets",
    "home": "Rockets",
    "lname": "NBA"
@@ -579,7 +579,7 @@
     "DAZN SAS"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Spurs",
    "home": "Suns",
    "lname": "NBA"
