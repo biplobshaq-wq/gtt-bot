@@ -538,7 +538,7 @@ def send_photo(state, now):
                   (f"\U0001F4CA {A['short']}: {A['rank']}  |  {H['short']}: {H['rank']}" if A.get('rank') and H.get('rank') else ''),
                   (f"\u2B50 Stars to watch: {stars}" if stars else '')]
     tags = ' '.join('#' + re.sub(r'[^A-Za-z0-9]', '', x) for x in [s['away'], s['home'], s['lname'], 'GameDay'])
-    cap = '\n'.join(x for x in info_lines if x) + f"\n\nWho wins? Comment your pick and final score {ball}\U0001F447\n\n" + tags
+    cap = '\n'.join(x for x in info_lines if x) + f"\n\nWho wins? Comment your pick and final score {ball}\U0001F447\n\U0001F514 Follow Game Time Tonight for every big game, every day.\n\n" + tags
     if creds:
         cap += '\n\nPhotos: ' + '; '.join(creds)
     payload = {'kind': 'photo', 'photo': base64.b64encode(open(p, 'rb').read()).decode(), 'filename': gid + '.jpg', 'caption': cap}
@@ -597,7 +597,8 @@ def send_fb(state, now):
     cap = (f"{s['away']} vs {s['home']} \U0001F525\n{word}: {ko.strftime('%A')} at {when}\nTV: {tv}"
            + (f"\nPlayers to watch: {kp[0][0]} & {kp[1][0]}" if len(kp) == 2 else '') +
            f"\n\nWho wins? Drop your pick below {ball}"
-           f"\n\nLive score, TV channel and preview: link in the comments \U0001F447\n\n{tags}"
+           f"\n\nLive score, TV channel and preview: link in the comments \U0001F447"
+           f"\n\U0001F514 Follow Game Time Tonight for every big game, every day.\n\n{tags}"
            + (("\n\nPhotos: " + "; ".join(creds) + " via Wikimedia Commons") if creds else ''))
     payload = {'video': base64.b64encode(open('reel.mp4', 'rb').read()).decode(), 'filename': gid + '.mp4',
                'title': f"{s['away']} vs {s['home']}: {word} Time & TV Channel"[:100],
