@@ -597,7 +597,7 @@
    "tv": [
     "NBC"
    ],
-   "fb": false,
+   "fb": true,
    "final": false,
    "away": "Celtics",
    "home": "76ers",
@@ -739,21 +739,43 @@
    "away": "Warriors",
    "home": "Rockets",
    "lname": "NBA"
+  },
+  "401909966": {
+   "post": "455920287013264916",
+   "url": "https://gametimetonight.blogspot.com/2026/11/wizards-vs-pacers-tip-off-time-tv.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-12T00:00:00+00:00",
+   "date": "2026-11-11",
+   "score": 20,
+   "title": "Wizards vs Pacers: Tip-Off Time, TV Channel & Live Score (November 11)",
+   "img": "img/401909966.jpg",
+   "line1": "WED, NOV 11 \u00b7 TIP-OFF 7 PM ET",
+   "tv": [
+    "MNMT",
+    "DAZN IND"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Wizards",
+   "home": "Pacers",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
   "2026-11-08": 12,
   "2026-11-09": 12,
-  "2026-11-10": 5
+  "2026-11-10": 6
  },
  "fbdaily": {
   "2026-11-07": 3,
   "2026-11-08": 3,
-  "2026-11-09": 2
+  "2026-11-09": 2,
+  "2026-11-10": 1
  },
  "fbphoto": {
   "2026-11-09": "401873051",
   "2026-11-10": "401909961"
- }
+ },
+ "last_fb": "2026-11-10T22:49:01.832059+00:00"
 }
