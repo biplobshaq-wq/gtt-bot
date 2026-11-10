@@ -759,13 +759,30 @@
    "away": "Wizards",
    "home": "Pacers",
    "lname": "NBA"
+  },
+  "401909968": {
+   "post": "4134448575074385024",
+   "url": "https://gametimetonight.blogspot.com/2026/11/celtics-vs-raptors-tip-off-time-tv.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-12T00:00:00+00:00",
+   "date": "2026-11-11",
+   "score": 20,
+   "title": "Celtics vs Raptors: Tip-Off Time, TV Channel & Live Score (November 11)",
+   "img": "img/401909968.jpg",
+   "line1": "WED, NOV 11 \u00b7 TIP-OFF 7 PM ET",
+   "tv": [],
+   "fb": false,
+   "final": false,
+   "away": "Celtics",
+   "home": "Raptors",
+   "lname": "NBA"
   }
  },
  "daily": {
   "2026-11-07": 9,
   "2026-11-08": 12,
   "2026-11-09": 12,
-  "2026-11-10": 6
+  "2026-11-10": 7
  },
  "fbdaily": {
   "2026-11-07": 3,
