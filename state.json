@@ -460,7 +460,7 @@
     "Spectrum Sports Net +"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Lakers",
    "home": "Hawks",
    "lname": "NBA"
@@ -479,7 +479,7 @@
     "DAZN CLE"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Cavaliers",
    "home": "Hornets",
    "lname": "NBA"
@@ -498,7 +498,7 @@
     "NBCSN"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Wizards",
    "home": "Pistons",
    "lname": "NBA"
