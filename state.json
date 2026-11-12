@@ -1031,6 +1031,25 @@
    "away": "Illinois",
    "home": "UCLA",
    "lname": "College Football"
+  },
+  "401856860": {
+   "post": "2508669014649923048",
+   "url": "https://gametimetonight.blogspot.com/2026/11/houston-vs-colorado-kickoff-time-tv.html",
+   "league": "football/college-football",
+   "ko": "2026-11-14T03:15:00+00:00",
+   "date": "2026-11-13",
+   "score": 80,
+   "title": "Houston vs Colorado: Kickoff Time, TV Channel & Live Score (November 13)",
+   "img": "img/401856860.jpg",
+   "line1": "FRI, NOV 13 \u00b7 KICKOFF 10:15 PM ET",
+   "tv": [
+    "ESPN"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Houston",
+   "home": "Colorado",
+   "lname": "College Football"
   }
  },
  "daily": {
@@ -1039,7 +1058,7 @@
   "2026-11-09": 12,
   "2026-11-10": 11,
   "2026-11-11": 5,
-  "2026-11-12": 4
+  "2026-11-12": 5
  },
  "fbdaily": {
   "2026-11-07": 3,
