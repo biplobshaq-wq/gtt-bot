@@ -716,7 +716,7 @@
     "ESPN"
    ],
    "fb": true,
-   "final": false,
+   "final": true,
    "away": "Cavaliers",
    "home": "Knicks",
    "lname": "NBA"
@@ -755,7 +755,7 @@
     "DAZN IND"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Wizards",
    "home": "Pacers",
    "lname": "NBA"
@@ -772,7 +772,7 @@
    "line1": "WED, NOV 11 \u00b7 TIP-OFF 7 PM ET",
    "tv": [],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Celtics",
    "home": "Raptors",
    "lname": "NBA"
