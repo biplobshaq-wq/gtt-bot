@@ -791,7 +791,7 @@
     "DAZN SAS"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Spurs",
    "home": "Bulls",
    "lname": "NBA"
@@ -808,7 +808,7 @@
    "line1": "WED, NOV 11 \u00b7 TIP-OFF 8 PM ET",
    "tv": [],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Nuggets",
    "home": "Grizzlies",
    "lname": "NBA"
@@ -830,7 +830,7 @@
     "Bucks App"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Lakers",
    "home": "Bucks",
    "lname": "NBA"
