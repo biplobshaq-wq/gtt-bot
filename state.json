@@ -1012,6 +1012,25 @@
    "away": "Hornets",
    "home": "Suns",
    "lname": "NBA"
+  },
+  "401858526": {
+   "post": "8187054940681176311",
+   "url": "https://gametimetonight.blogspot.com/2026/11/illinois-vs-ucla-kickoff-time-tv.html",
+   "league": "football/college-football",
+   "ko": "2026-11-14T02:00:00+00:00",
+   "date": "2026-11-13",
+   "score": 80,
+   "title": "Illinois vs UCLA: Kickoff Time, TV Channel & Live Score (November 13)",
+   "img": "img/401858526.jpg",
+   "line1": "FRI, NOV 13 \u00b7 KICKOFF 9 PM ET",
+   "tv": [
+    "Fox"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Illinois",
+   "home": "UCLA",
+   "lname": "College Football"
   }
  },
  "daily": {
@@ -1020,7 +1039,7 @@
   "2026-11-09": 12,
   "2026-11-10": 11,
   "2026-11-11": 5,
-  "2026-11-12": 3
+  "2026-11-12": 4
  },
  "fbdaily": {
   "2026-11-07": 3,
