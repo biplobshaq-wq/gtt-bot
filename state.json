@@ -992,6 +992,26 @@
    "away": "Memphis",
    "home": "South Florida",
    "lname": "College Football"
+  },
+  "401909979": {
+   "post": "1811691451729063948",
+   "url": "https://gametimetonight.blogspot.com/2026/11/hornets-vs-suns-tip-off-time-tv-channel.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-13T02:00:00+00:00",
+   "date": "2026-11-12",
+   "score": 20,
+   "title": "Hornets vs Suns: Tip-Off Time, TV Channel & Live Score (November 12)",
+   "img": "img/401909979.jpg",
+   "line1": "THU, NOV 12 \u00b7 TIP-OFF 9 PM ET",
+   "tv": [
+    "Suns Live",
+    "Arizona's Family 3TV"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Hornets",
+   "home": "Suns",
+   "lname": "NBA"
   }
  },
  "daily": {
@@ -1000,7 +1020,7 @@
   "2026-11-09": 12,
   "2026-11-10": 11,
   "2026-11-11": 5,
-  "2026-11-12": 2
+  "2026-11-12": 3
  },
  "fbdaily": {
   "2026-11-07": 3,
