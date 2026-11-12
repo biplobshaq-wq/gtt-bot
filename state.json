@@ -735,7 +735,7 @@
     "ESPN"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Warriors",
    "home": "Rockets",
    "lname": "NBA"
@@ -893,7 +893,7 @@
     "Thunder App"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Thunder",
    "home": "Trail Blazers",
    "lname": "NBA"
