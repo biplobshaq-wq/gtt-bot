@@ -973,6 +973,25 @@
    "away": "Pistons",
    "home": "Wizards",
    "lname": "NBA"
+  },
+  "401862824": {
+   "post": "887119040085150803",
+   "url": "https://gametimetonight.blogspot.com/2026/11/memphis-vs-south-florida-kickoff-time.html",
+   "league": "football/college-football",
+   "ko": "2026-11-13T01:00:00+00:00",
+   "date": "2026-11-12",
+   "score": 20,
+   "title": "Memphis vs South Florida: Kickoff Time, TV Channel & Live Score (November 12)",
+   "img": "img/401862824.jpg",
+   "line1": "THU, NOV 12 \u00b7 KICKOFF 8 PM ET",
+   "tv": [
+    "ESPN"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Memphis",
+   "home": "South Florida",
+   "lname": "College Football"
   }
  },
  "daily": {
@@ -981,7 +1000,7 @@
   "2026-11-09": 12,
   "2026-11-10": 11,
   "2026-11-11": 5,
-  "2026-11-12": 1
+  "2026-11-12": 2
  },
  "fbdaily": {
   "2026-11-07": 3,
