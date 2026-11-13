@@ -933,7 +933,7 @@
     "MavsTV"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Mavericks",
    "home": "Timberwolves",
    "lname": "NBA"
@@ -969,7 +969,7 @@
     "MNMT"
    ],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Pistons",
    "home": "Wizards",
    "lname": "NBA"
@@ -1069,6 +1069,25 @@
    "away": "Knicks",
    "home": "Pacers",
    "lname": "NBA"
+  },
+  "401909302": {
+   "post": "7709809741058600336",
+   "url": "https://gametimetonight.blogspot.com/2026/11/warriors-vs-spurs-tip-off-time-tv.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-14T02:30:00+00:00",
+   "date": "2026-11-13",
+   "score": 50,
+   "title": "Warriors vs Spurs: Tip-Off Time, TV Channel & Live Score (November 13)",
+   "img": "img/401909302.jpg",
+   "line1": "FRI, NOV 13 \u00b7 TIP-OFF 9:30 PM ET",
+   "tv": [
+    "Prime Video"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Warriors",
+   "home": "Spurs",
+   "lname": "NBA"
   }
  },
  "daily": {
@@ -1077,7 +1096,7 @@
   "2026-11-09": 12,
   "2026-11-10": 11,
   "2026-11-11": 5,
-  "2026-11-12": 6
+  "2026-11-12": 7
  },
  "fbdaily": {
   "2026-11-07": 3,
