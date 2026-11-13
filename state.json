@@ -1050,6 +1050,25 @@
    "away": "Houston",
    "home": "Colorado",
    "lname": "College Football"
+  },
+  "401909296": {
+   "post": "6389593285094745158",
+   "url": "https://gametimetonight.blogspot.com/2026/11/knicks-vs-pacers-tip-off-time-tv.html",
+   "league": "basketball/nba",
+   "ko": "2026-11-14T00:00:00+00:00",
+   "date": "2026-11-13",
+   "score": 50,
+   "title": "Knicks vs Pacers: Tip-Off Time, TV Channel & Live Score (November 13)",
+   "img": "img/401909296.jpg",
+   "line1": "FRI, NOV 13 \u00b7 TIP-OFF 7 PM ET",
+   "tv": [
+    "Prime Video"
+   ],
+   "fb": false,
+   "final": false,
+   "away": "Knicks",
+   "home": "Pacers",
+   "lname": "NBA"
   }
  },
  "daily": {
@@ -1058,7 +1077,7 @@
   "2026-11-09": 12,
   "2026-11-10": 11,
   "2026-11-11": 5,
-  "2026-11-12": 5
+  "2026-11-12": 6
  },
  "fbdaily": {
   "2026-11-07": 3,
