@@ -950,7 +950,7 @@
    "line1": "THU, NOV 12 \u00b7 TIP-OFF 7 PM ET",
    "tv": [],
    "fb": false,
-   "final": false,
+   "final": true,
    "away": "Raptors",
    "home": "76ers",
    "lname": "NBA"
