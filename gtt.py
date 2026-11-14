@@ -1,8 +1,14 @@
-"""Game Time Tonight bot (runs hourly on GitHub Actions).
-1) Publishes 1 game preview per run (best upcoming game, kickoff in 3-30h), max DAILY_CAP per ET day.
-2) After games end, adds the final score to the post (no AI needed).
-3) 0-3h before kickoff, sends the matchup card to the Facebook webhook (Make.com) for top games.
-Blogger publishing + Gemini go through the owner's Apps Script web app."""
+"""Legacy Game Time Tonight entry point.
+
+The GitHub workflow still calls this filename. It delegates immediately to the controlled
+one-post-per-day European-football publisher in gtt_daily.py, so the old high-volume
+preview and Facebook routines below are not executed.
+"""
+if __name__ == '__main__':
+    from gtt_daily import main as daily_main
+    daily_main()
+    raise SystemExit(0)
+
 import base64, datetime as dt, html, json, os, re, subprocess, sys, time, urllib.request
 from zoneinfo import ZoneInfo
 from card import make_card
