@@ -1163,7 +1163,7 @@
     "England",
     "Spain"
    ],
-   "final": false,
+   "final": true,
    "image": "img/euro-401861175.jpg"
   },
   "401861176": {
@@ -1182,7 +1182,7 @@
     "Italy",
     "Belgium"
    ],
-   "final": false,
+   "final": true,
    "image": "img/euro-401861176.jpg"
   }
  },
