@@ -1165,6 +1165,25 @@
    ],
    "final": false,
    "image": "img/euro-401861175.jpg"
+  },
+  "401861176": {
+   "format": "euro_daily",
+   "post": "7909493246619450608",
+   "url": "https://gametimetonight.blogspot.com/2026/11/italy-vs-belgium-us-time-tv.html",
+   "date": "2026-11-15",
+   "kickoff": "2026-11-15T19:45:00+00:00",
+   "api_league": "soccer/uefa.nations",
+   "league": "UEFA Nations League",
+   "title": "Italy vs Belgium: US Time & TV",
+   "labels": [
+    "UEFA Nations League",
+    "European Football",
+    "Preview",
+    "Italy",
+    "Belgium"
+   ],
+   "final": false,
+   "image": "img/euro-401861176.jpg"
   }
  },
  "daily": {
@@ -1192,6 +1211,7 @@
  },
  "last_fb": "2026-11-12T22:52:03.356982+00:00",
  "euro_daily": {
-  "2026-11-14": "401861175"
+  "2026-11-14": "401861175",
+  "2026-11-15": "401861176"
  }
 }
