@@ -1184,6 +1184,25 @@
    ],
    "final": true,
    "image": "img/euro-401861176.jpg"
+  },
+  "401861185": {
+   "format": "euro_daily",
+   "post": "9031050212261703818",
+   "url": "https://gametimetonight.blogspot.com/2026/11/netherlands-vs-germany-us-time-tv.html",
+   "date": "2026-11-16",
+   "kickoff": "2026-11-16T19:45:00+00:00",
+   "api_league": "soccer/uefa.nations",
+   "league": "UEFA Nations League",
+   "title": "Netherlands vs Germany: US Time & TV",
+   "labels": [
+    "UEFA Nations League",
+    "European Football",
+    "Preview",
+    "Netherlands",
+    "Germany"
+   ],
+   "final": false,
+   "image": "img/euro-401861185.jpg"
   }
  },
  "daily": {
@@ -1212,6 +1231,7 @@
  "last_fb": "2026-11-12T22:52:03.356982+00:00",
  "euro_daily": {
   "2026-11-14": "401861175",
-  "2026-11-15": "401861176"
+  "2026-11-15": "401861176",
+  "2026-11-16": "401861185"
  }
 }
