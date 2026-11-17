@@ -1203,6 +1203,25 @@
    ],
    "final": true,
    "image": "img/euro-401861185.jpg"
+  },
+  "401861194": {
+   "format": "euro_daily",
+   "post": "519115838711063983",
+   "url": "https://gametimetonight.blogspot.com/2026/11/norway-vs-denmark-us-time-tv.html",
+   "date": "2026-11-17",
+   "kickoff": "2026-11-17T19:45:00+00:00",
+   "api_league": "soccer/uefa.nations",
+   "league": "UEFA Nations League",
+   "title": "Norway vs Denmark: US Time & TV",
+   "labels": [
+    "UEFA Nations League",
+    "European Football",
+    "Preview",
+    "Norway",
+    "Denmark"
+   ],
+   "final": false,
+   "image": "img/euro-401861194.jpg"
   }
  },
  "daily": {
@@ -1232,6 +1251,7 @@
  "euro_daily": {
   "2026-11-14": "401861175",
   "2026-11-15": "401861176",
-  "2026-11-16": "401861185"
+  "2026-11-16": "401861185",
+  "2026-11-17": "401861194"
  }
 }
