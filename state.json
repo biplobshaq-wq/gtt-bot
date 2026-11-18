@@ -1222,6 +1222,25 @@
    ],
    "final": true,
    "image": "img/euro-401861194.jpg"
+  },
+  "401879232": {
+   "format": "euro_daily",
+   "post": "7699165919316158163",
+   "url": "https://gametimetonight.blogspot.com/2026/11/arsenal-vs-newcastle-united-us-time-tv.html",
+   "date": "2026-11-18",
+   "kickoff": "2026-11-21T17:30:00+00:00",
+   "api_league": "soccer/eng.1",
+   "league": "English Premier League",
+   "title": "Arsenal vs Newcastle United: US Time & TV",
+   "labels": [
+    "English Premier League",
+    "European Football",
+    "Preview",
+    "Arsenal",
+    "Newcastle United"
+   ],
+   "final": false,
+   "image": "img/euro-401879232.jpg"
   }
  },
  "daily": {
@@ -1252,6 +1271,7 @@
   "2026-11-14": "401861175",
   "2026-11-15": "401861176",
   "2026-11-16": "401861185",
-  "2026-11-17": "401861194"
+  "2026-11-17": "401861194",
+  "2026-11-18": "401879232"
  }
 }
