@@ -1241,6 +1241,25 @@
    ],
    "final": false,
    "image": "img/euro-401879232.jpg"
+  },
+  "401878755": {
+   "format": "euro_daily",
+   "post": "3668178617017590830",
+   "url": "https://gametimetonight.blogspot.com/2026/11/manchester-united-vs-liverpool-us-time.html",
+   "date": "2026-11-19",
+   "kickoff": "2026-11-22T16:30:00+00:00",
+   "api_league": "soccer/eng.1",
+   "league": "English Premier League",
+   "title": "Manchester United vs Liverpool: US Time & TV",
+   "labels": [
+    "English Premier League",
+    "European Football",
+    "Preview",
+    "Manchester United",
+    "Liverpool"
+   ],
+   "final": false,
+   "image": "img/euro-401878755.jpg"
   }
  },
  "daily": {
@@ -1272,6 +1291,7 @@
   "2026-11-15": "401861176",
   "2026-11-16": "401861185",
   "2026-11-17": "401861194",
-  "2026-11-18": "401879232"
+  "2026-11-18": "401879232",
+  "2026-11-19": "401878755"
  }
 }
