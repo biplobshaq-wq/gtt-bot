@@ -1317,6 +1317,25 @@
    ],
    "final": false,
    "image": "img/euro-401915379.jpg"
+  },
+  "401915374": {
+   "format": "euro_daily",
+   "post": "6128557102954860757",
+   "url": "https://gametimetonight.blogspot.com/2026/11/as-roma-vs-paris-saint-germain-us-time.html",
+   "date": "2026-11-23",
+   "kickoff": "2026-11-25T20:00:00+00:00",
+   "api_league": "soccer/uefa.champions",
+   "league": "UEFA Champions League",
+   "title": "AS Roma vs Paris Saint-Germain: US Time & TV",
+   "labels": [
+    "UEFA Champions League",
+    "European Football",
+    "Preview",
+    "AS Roma",
+    "Paris Saint-Germain"
+   ],
+   "final": false,
+   "image": "img/euro-401915374.jpg"
   }
  },
  "daily": {
@@ -1352,6 +1371,7 @@
   "2026-11-19": "401878755",
   "2026-11-20": "401879233",
   "2026-11-21": "401915295",
-  "2026-11-22": "401915379"
+  "2026-11-22": "401915379",
+  "2026-11-23": "401915374"
  }
 }
