@@ -1336,6 +1336,25 @@
    ],
    "final": false,
    "image": "img/euro-401915374.jpg"
+  },
+  "401915298": {
+   "format": "euro_daily",
+   "post": "4987386701798361899",
+   "url": "https://gametimetonight.blogspot.com/2026/11/psv-eindhoven-vs-real-madrid-us-time-tv.html",
+   "date": "2026-11-24",
+   "kickoff": "2026-11-24T20:00:00+00:00",
+   "api_league": "soccer/uefa.champions",
+   "league": "UEFA Champions League",
+   "title": "PSV Eindhoven vs Real Madrid: US Time & TV",
+   "labels": [
+    "UEFA Champions League",
+    "European Football",
+    "Preview",
+    "PSV Eindhoven",
+    "Real Madrid"
+   ],
+   "final": false,
+   "image": "img/euro-401915298.jpg"
   }
  },
  "daily": {
@@ -1372,6 +1391,7 @@
   "2026-11-20": "401879233",
   "2026-11-21": "401915295",
   "2026-11-22": "401915379",
-  "2026-11-23": "401915374"
+  "2026-11-23": "401915374",
+  "2026-11-24": "401915298"
  }
 }
