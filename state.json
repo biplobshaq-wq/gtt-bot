@@ -1296,7 +1296,7 @@
     "Borussia Dortmund",
     "Arsenal"
    ],
-   "final": false,
+   "final": true,
    "image": "img/euro-401915295.jpg"
   },
   "401915379": {
@@ -1315,7 +1315,7 @@
     "Napoli",
     "Manchester City"
    ],
-   "final": false,
+   "final": true,
    "image": "img/euro-401915379.jpg"
   },
   "401915374": {
