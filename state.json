@@ -1355,6 +1355,25 @@
    ],
    "final": true,
    "image": "img/euro-401915298.jpg"
+  },
+  "401915378": {
+   "format": "euro_daily",
+   "post": "2492709662382464869",
+   "url": "https://gametimetonight.blogspot.com/2026/11/barcelona-vs-sabah-fk-us-time-tv.html",
+   "date": "2026-11-25",
+   "kickoff": "2026-11-25T17:45:00+00:00",
+   "api_league": "soccer/uefa.champions",
+   "league": "UEFA Champions League",
+   "title": "Barcelona vs Sabah FK: US Time & TV",
+   "labels": [
+    "UEFA Champions League",
+    "European Football",
+    "Preview",
+    "Barcelona",
+    "Sabah FK"
+   ],
+   "final": false,
+   "image": "img/euro-401915378.jpg"
   }
  },
  "daily": {
@@ -1392,6 +1411,7 @@
   "2026-11-21": "401915295",
   "2026-11-22": "401915379",
   "2026-11-23": "401915374",
-  "2026-11-24": "401915298"
+  "2026-11-24": "401915298",
+  "2026-11-25": "401915378"
  }
 }
