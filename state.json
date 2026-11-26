@@ -1374,6 +1374,25 @@
    ],
    "final": true,
    "image": "img/euro-401915378.jpg"
+  },
+  "401915521": {
+   "format": "euro_daily",
+   "post": "5364840196444154226",
+   "url": "https://gametimetonight.blogspot.com/2026/11/ac-milan-vs-olympiacos-us-time-tv.html",
+   "date": "2026-11-26",
+   "kickoff": "2026-11-26T17:45:00+00:00",
+   "api_league": "soccer/uefa.europa",
+   "league": "UEFA Europa League",
+   "title": "AC Milan vs Olympiacos: US Time & TV",
+   "labels": [
+    "UEFA Europa League",
+    "European Football",
+    "Preview",
+    "AC Milan",
+    "Olympiacos"
+   ],
+   "final": false,
+   "image": "img/euro-401915521.jpg"
   }
  },
  "daily": {
@@ -1412,6 +1431,7 @@
   "2026-11-22": "401915379",
   "2026-11-23": "401915374",
   "2026-11-24": "401915298",
-  "2026-11-25": "401915378"
+  "2026-11-25": "401915378",
+  "2026-11-26": "401915521"
  }
 }
