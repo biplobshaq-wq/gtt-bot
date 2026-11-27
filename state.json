@@ -1393,6 +1393,25 @@
    ],
    "final": true,
    "image": "img/euro-401915521.jpg"
+  },
+  "401878753": {
+   "format": "euro_daily",
+   "post": "4900497389761046191",
+   "url": "https://gametimetonight.blogspot.com/2026/11/manchester-city-vs-arsenal-us-time-tv.html",
+   "date": "2026-11-27",
+   "kickoff": "2026-11-29T16:30:00+00:00",
+   "api_league": "soccer/eng.1",
+   "league": "English Premier League",
+   "title": "Manchester City vs Arsenal: US Time & TV",
+   "labels": [
+    "English Premier League",
+    "European Football",
+    "Preview",
+    "Manchester City",
+    "Arsenal"
+   ],
+   "final": false,
+   "image": "img/euro-401878753.jpg"
   }
  },
  "daily": {
@@ -1432,6 +1451,7 @@
   "2026-11-23": "401915374",
   "2026-11-24": "401915298",
   "2026-11-25": "401915378",
-  "2026-11-26": "401915521"
+  "2026-11-26": "401915521",
+  "2026-11-27": "401878753"
  }
 }
