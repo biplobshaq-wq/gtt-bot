@@ -1412,6 +1412,25 @@
    ],
    "final": false,
    "image": "img/euro-401878753.jpg"
+  },
+  "401879226": {
+   "format": "euro_daily",
+   "post": "3746251322027436798",
+   "url": "https://gametimetonight.blogspot.com/2026/11/brentford-vs-manchester-united-us-time.html",
+   "date": "2026-11-28",
+   "kickoff": "2026-11-28T15:00:00+00:00",
+   "api_league": "soccer/eng.1",
+   "league": "English Premier League",
+   "title": "Brentford vs Manchester United: US Time & TV",
+   "labels": [
+    "English Premier League",
+    "European Football",
+    "Preview",
+    "Brentford",
+    "Manchester United"
+   ],
+   "final": false,
+   "image": "img/euro-401879226.jpg"
   }
  },
  "daily": {
@@ -1452,6 +1471,7 @@
   "2026-11-24": "401915298",
   "2026-11-25": "401915378",
   "2026-11-26": "401915521",
-  "2026-11-27": "401878753"
+  "2026-11-27": "401878753",
+  "2026-11-28": "401879226"
  }
 }
